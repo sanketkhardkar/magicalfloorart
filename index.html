@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Megical Floor Art</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
 font-family:Arial,sans-serif;
 background:#f5f5f5;
-color:#222
+color:#222;
 }
+
+/* HEADER */
 
 header{
 background:#111827;
-color:#fff;
+color:white;
 padding:12px 15px;
 position:sticky;
 top:0;
-z-index:1000
+z-index:1000;
 }
 
 .header-content{
@@ -28,111 +37,135 @@ max-width:1100px;
 margin:auto;
 display:flex;
 align-items:center;
-justify-content:space-between
+justify-content:space-between;
 }
 
 .shop-name{
 font-size:21px;
-font-weight:bold
+font-weight:bold;
 }
 
 .cart-button{
 background:#25D366;
-color:#fff;
+color:white;
 border:0;
 border-radius:25px;
 padding:10px 15px;
 font-size:15px;
 font-weight:bold;
-cursor:pointer
+cursor:pointer;
 }
+
+
+/* PRODUCTS */
 
 .container{
 max-width:1100px;
 margin:auto;
-padding:15px
+padding:15px;
 }
 
 .products{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:12px
+gap:12px;
 }
 
 .product{
-background:#fff;
+background:white;
 border-radius:14px;
 overflow:hidden;
-box-shadow:0 3px 12px #0001
+box-shadow:0 3px 12px #0001;
 }
+
+
+/* IMAGE */
 
 .slider{
 position:relative;
 aspect-ratio:1;
 overflow:hidden;
 background:#eee;
-touch-action:pan-y
+touch-action:pan-y;
 }
 
 .slider img{
 width:100%;
 height:100%;
 object-fit:cover;
-display:block
+display:block;
 }
+
+
+/* ARROWS */
 
 .arrow{
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-background:#0007;
-color:#fff;
+background:#0008;
+color:white;
 border:0;
 width:34px;
 height:34px;
 border-radius:50%;
 font-size:22px;
-cursor:pointer
+cursor:pointer;
 }
 
-.prev{left:8px}
-.next{right:8px}
+.prev{
+left:8px;
+}
+
+.next{
+right:8px;
+}
+
+
+/* DOTS */
 
 .dots{
 position:absolute;
 bottom:8px;
 width:100%;
-text-align:center
+text-align:center;
 }
 
 .dot{
 display:inline-block;
 width:7px;
 height:7px;
-background:#fff;
+background:white;
 border-radius:50%;
 margin:3px;
-opacity:.5
+opacity:.5;
 }
 
-.dot.active{opacity:1}
+.dot.active{
+opacity:1;
+}
+
+
+/* PRODUCT INFO */
 
 .product-info{
-padding:12px
+padding:12px;
 }
 
 .product-name{
 font-size:16px;
 font-weight:bold;
-line-height:1.3
 }
 
 .price{
 color:#16a34a;
 font-size:18px;
 font-weight:bold;
-margin-top:6px
+margin-top:6px;
 }
+
+
+/* QUANTITY */
 
 .quantity{
 display:flex;
@@ -141,7 +174,7 @@ justify-content:space-between;
 border:1px solid #ddd;
 border-radius:8px;
 overflow:hidden;
-margin-top:10px
+margin-top:10px;
 }
 
 .quantity button{
@@ -150,12 +183,15 @@ height:38px;
 border:0;
 background:#f3f4f6;
 font-size:21px;
-cursor:pointer
+cursor:pointer;
 }
 
 .quantity span{
-font-weight:bold
+font-weight:bold;
 }
+
+
+/* MODAL */
 
 .modal{
 display:none;
@@ -164,34 +200,34 @@ z-index:2000;
 inset:0;
 background:#0009;
 padding:15px;
-overflow-y:auto
+overflow-y:auto;
 }
 
 .modal.show{
 display:flex;
 align-items:center;
-justify-content:center
+justify-content:center;
 }
 
 .modal-content{
-background:#fff;
+background:white;
 width:100%;
 max-width:500px;
 border-radius:16px;
 padding:20px;
 max-height:90vh;
-overflow-y:auto
+overflow-y:auto;
 }
 
 .modal-header{
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin-bottom:15px
+margin-bottom:15px;
 }
 
 .modal-header h2{
-font-size:21px
+font-size:21px;
 }
 
 .close{
@@ -201,13 +237,16 @@ width:35px;
 height:35px;
 border-radius:50%;
 font-size:22px;
-cursor:pointer
+cursor:pointer;
 }
+
+
+/* FORM */
 
 .form-title{
 font-size:16px;
 font-weight:bold;
-margin-bottom:10px
+margin-bottom:10px;
 }
 
 .customer-form input,
@@ -218,23 +257,21 @@ margin-bottom:10px;
 border:1px solid #ddd;
 border-radius:8px;
 font-size:15px;
-outline:0
+outline:none;
 }
 
 .customer-form textarea{
 height:75px;
-resize:none
+resize:none;
 }
 
-.customer-form input:focus,
-.customer-form textarea:focus{
-border-color:#25D366
-}
+
+/* ORDER */
 
 .order-summary{
 margin-top:10px;
 border-top:1px solid #eee;
-padding-top:12px
+padding-top:12px;
 }
 
 .order-item{
@@ -242,11 +279,11 @@ display:flex;
 justify-content:space-between;
 padding:8px 0;
 border-bottom:1px solid #eee;
-font-size:14px
+font-size:14px;
 }
 
 .order-item-name{
-font-weight:bold
+font-weight:bold;
 }
 
 .order-total{
@@ -254,63 +291,79 @@ display:flex;
 justify-content:space-between;
 font-size:20px;
 font-weight:bold;
-margin-top:15px
+margin-top:15px;
 }
+
+.empty-cart{
+text-align:center;
+color:#777;
+padding:20px 5px;
+}
+
+
+/* WHATSAPP */
 
 .whatsapp-button{
 width:100%;
 background:#25D366;
-color:#fff;
+color:white;
 border:0;
 padding:14px;
 border-radius:10px;
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-margin-top:15px
+margin-top:15px;
 }
 
-.empty-cart{
-text-align:center;
-color:#777;
-padding:20px 5px
-}
+
+/* DESKTOP */
 
 @media(min-width:700px){
+
 .products{
-grid-template-columns:repeat(4,1fr)
+grid-template-columns:repeat(4,1fr);
 }
+
 }
+
+
+/* MOBILE */
 
 @media(max-width:450px){
 
 .shop-name{
-font-size:18px
+font-size:18px;
 }
 
 .cart-button{
 padding:9px 12px;
-font-size:14px
+font-size:14px;
 }
 
 .product-info{
-padding:9px
+padding:9px;
 }
 
 .product-name{
-font-size:14px
+font-size:14px;
 }
 
 .price{
-font-size:17px
+font-size:17px;
 }
 
 }
 
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- HEADER -->
 
 <header>
 
@@ -328,6 +381,8 @@ font-size:17px
 
 </header>
 
+
+<!-- PRODUCTS -->
 
 <div class="container">
 
@@ -355,28 +410,36 @@ font-size:17px
 Customer Details
 </div>
 
+
 <div class="customer-form">
 
 <input
 type="text"
 id="customerName"
-placeholder="Enter your name">
+placeholder="Enter your name"
+>
 
 <textarea
 id="customerAddress"
-placeholder="Enter delivery address"></textarea>
+placeholder="Enter delivery address"
+></textarea>
 
 </div>
 
 
-<div class="order-summary" id="orderSummary"></div>
+<div
+class="order-summary"
+id="orderSummary">
+</div>
 
 
 <div class="order-total">
 
 <span>Grand Total</span>
 
-<span id="grandTotal">₹0</span>
+<span id="grandTotal">
+₹0
+</span>
 
 </div>
 
@@ -396,17 +459,17 @@ onclick="sendWhatsApp()">
 
 <script>
 
-/* ==================================================
+/* =================================================
    WHATSAPP NUMBER
-================================================== */
+================================================= */
 
 const WHATSAPP_NUMBER = "917507611433";
 
 
-/* ==================================================
+/* =================================================
    PRODUCTS
-   ONLY EDIT THIS SECTION
-================================================== */
+   EDIT ONLY THIS SECTION
+================================================= */
 
 const products = [
 
@@ -435,127 +498,195 @@ images:[
 ];
 
 
-/* ==================================================
+/* =================================================
    CART
-================================================== */
+================================================= */
 
-const cart = {};
-const imageIndexes = {};
+let cart = {};
+
+let imageIndex = {};
 
 
-products.forEach(p=>{
-cart[p.id]=0;
-imageIndexes[p.id]=0;
+products.forEach(function(product){
+
+cart[product.id] = 0;
+
+imageIndex[product.id] = 0;
+
 });
 
 
-/* ==================================================
-   DISPLAY PRODUCTS
-================================================== */
+/* =================================================
+   SHOW PRODUCTS
+================================================= */
 
 function displayProducts(){
 
-const container=document.getElementById("products");
+const container =
+document.getElementById("products");
 
-container.innerHTML=products.map(p=>`
+
+let html = "";
+
+
+products.forEach(function(product){
+
+html += `
 
 <div class="product">
 
+
 <div
 class="slider"
-ontouchstart="touchStart(event)"
-ontouchend="touchEnd(event,${p.id})">
+data-id="${product.id}"
+>
 
 <img
-id="image-${p.id}"
-src="${p.images[0]}"
-alt="${p.name}">
+id="image-${product.id}"
+src="${product.images[0]}"
+alt="${product.name}"
+>
+
 
 <button
 class="arrow prev"
-onclick="previousImage(${p.id})">
+onclick="previousImage(${product.id})"
+>
 ‹
 </button>
 
+
 <button
 class="arrow next"
-onclick="nextImage(${p.id})">
+onclick="nextImage(${product.id})"
+>
 ›
 </button>
 
+
 <div class="dots">
 
-${p.images.map((_,i)=>`
+${product.images.map(function(image,index){
+
+return `
 
 <span
-class="dot ${i===0?'active':''}"
-id="dot-${p.id}-${i}">
-</span>
+class="dot ${index === 0 ? "active" : ""}"
+id="dot-${product.id}-${index}"
+></span>
 
-`).join("")}
+`;
+
+}).join("")}
 
 </div>
+
 
 </div>
 
 
 <div class="product-info">
 
+
 <div class="product-name">
-${p.name}
+${product.name}
 </div>
 
+
 <div class="price">
-₹${p.price}
+₹${product.price}
 </div>
 
 
 <div class="quantity">
 
-<button onclick="changeQuantity(${p.id},-1)">
+
+<button
+onclick="changeQuantity(${product.id},-1)"
+>
 −
 </button>
 
-<span id="qty-${p.id}">
+
+<span id="qty-${product.id}">
 0
 </span>
 
-<button onclick="changeQuantity(${p.id},1)">
+
+<button
+onclick="changeQuantity(${product.id},1)"
+>
 +
 </button>
 
+
 </div>
+
 
 </div>
 
 </div>
 
-`).join("");
+`;
+
+});
+
+
+container.innerHTML = html;
+
+
+/* ENABLE SWIPE */
+
+products.forEach(function(product){
+
+const slider =
+document.querySelector(
+`.slider[data-id="${product.id}"]`
+);
+
+
+let startX = 0;
+
+
+slider.addEventListener(
+"touchstart",
+function(event){
+
+startX =
+event.touches[0].clientX;
+
+},
+{passive:true}
+);
+
+
+slider.addEventListener(
+"touchend",
+function(event){
+
+const endX =
+event.changedTouches[0].clientX;
+
+const difference =
+startX - endX;
+
+
+if(Math.abs(difference) > 40){
+
+if(difference > 0){
+
+nextImage(product.id);
+
+}else{
+
+previousImage(product.id);
 
 }
 
+}
 
-/* ==================================================
-   IMAGE SLIDER
-================================================== */
-
-function updateImage(id){
-
-const product=products.find(p=>p.id===id);
-
-const index=imageIndexes[id];
-
-document.getElementById(`image-${id}`).src=
-product.images[index];
-
-
-product.images.forEach((_,i)=>{
-
-document
-.getElementById(`dot-${id}-${i}`)
-.classList.toggle(
-"active",
-i===index
+},
+{passive:true}
 );
 
 });
@@ -563,163 +694,230 @@ i===index
 }
 
 
+/* =================================================
+   IMAGE SLIDER
+================================================= */
+
+function updateImage(id){
+
+const product =
+products.find(function(item){
+
+return item.id === id;
+
+});
+
+
+const index =
+imageIndex[id];
+
+
+document.getElementById(
+`image-${id}`
+).src =
+product.images[index];
+
+
+product.images.forEach(
+function(image,index){
+
+const dot =
+document.getElementById(
+`dot-${id}-${index}`
+);
+
+
+if(dot){
+
+dot.classList.toggle(
+"active",
+index === imageIndex[id]
+);
+
+}
+
+});
+
+}
+
+
+/* NEXT */
+
 function nextImage(id){
 
-const product=products.find(p=>p.id===id);
+const product =
+products.find(function(item){
 
-imageIndexes[id]=
-(imageIndexes[id]+1)%product.images.length;
+return item.id === id;
+
+});
+
+
+imageIndex[id]++;
+
+if(
+imageIndex[id] >=
+product.images.length
+){
+
+imageIndex[id] = 0;
+
+}
+
 
 updateImage(id);
 
 }
 
+
+/* PREVIOUS */
 
 function previousImage(id){
 
-const product=products.find(p=>p.id===id);
+const product =
+products.find(function(item){
 
-imageIndexes[id]=
-(imageIndexes[id]-1+product.images.length)
-%product.images.length;
+return item.id === id;
+
+});
+
+
+imageIndex[id]--;
+
+
+if(imageIndex[id] < 0){
+
+imageIndex[id] =
+product.images.length - 1;
+
+}
+
 
 updateImage(id);
 
 }
 
 
-/* ==================================================
-   MOBILE SWIPE
-================================================== */
-
-let touchStartX=0;
-
-
-function touchStart(e){
-
-touchStartX=
-e.changedTouches[0].screenX;
-
-}
-
-
-function touchEnd(e,id){
-
-const touchEndX=
-e.changedTouches[0].screenX;
-
-const diff=
-touchStartX-touchEndX;
-
-if(Math.abs(diff)>40){
-
-if(diff>0){
-
-nextImage(id);
-
-}else{
-
-previousImage(id);
-
-}
-
-}
-
-}
-
-
-/* ==================================================
+/* =================================================
    QUANTITY
-================================================== */
+================================================= */
 
 function changeQuantity(id,change){
 
-cart[id]=Math.max(
-0,
-cart[id]+change
-);
+cart[id] += change;
+
+
+if(cart[id] < 0){
+
+cart[id] = 0;
+
+}
+
 
 document.getElementById(
 `qty-${id}`
-).innerText=cart[id];
+).innerText =
+cart[id];
+
 
 updateCartCount();
 
 }
 
 
+/* =================================================
+   CART COUNT
+================================================= */
+
 function updateCartCount(){
 
-const count=
-Object.values(cart)
-.reduce((total,qty)=>total+qty,0);
+let count = 0;
+
+
+products.forEach(function(product){
+
+count += cart[product.id];
+
+});
+
 
 document.getElementById(
 "cartCount"
-).innerText=count;
+).innerText =
+count;
 
 }
 
 
-/* ==================================================
-   CART
-================================================== */
+/* =================================================
+   OPEN CART
+================================================= */
 
 function openCart(){
 
 updateOrderSummary();
 
-document
-.getElementById("cartModal")
-.classList.add("show");
+
+document.getElementById(
+"cartModal"
+).classList.add("show");
 
 }
 
+
+/* =================================================
+   CLOSE CART
+================================================= */
 
 function closeCart(){
 
-document
-.getElementById("cartModal")
-.classList.remove("show");
+document.getElementById(
+"cartModal"
+).classList.remove("show");
 
 }
 
 
-/* ==================================================
+/* =================================================
    ORDER SUMMARY
-================================================== */
+================================================= */
 
 function updateOrderSummary(){
 
-let total=0;
+let total = 0;
+
+let html = "";
 
 
-const items=
-products
-.filter(p=>cart[p.id]>0)
-.map(p=>{
+products.forEach(function(product){
 
-const qty=cart[p.id];
-
-const itemTotal=
-p.price*qty;
-
-total+=itemTotal;
+const quantity =
+cart[product.id];
 
 
-return`
+if(quantity > 0){
+
+const itemTotal =
+product.price * quantity;
+
+
+total += itemTotal;
+
+
+html += `
 
 <div class="order-item">
 
 <div>
 
 <div class="order-item-name">
-${p.name}
+${product.name}
 </div>
 
-Qty: ${qty}
+Qty: ${quantity}
 
 </div>
+
 
 <div>
 ₹${itemTotal}
@@ -729,15 +927,15 @@ Qty: ${qty}
 
 `;
 
-})
-.join("");
+}
+
+});
 
 
-document.getElementById("orderSummary").innerHTML=
+if(html === ""){
 
-items ||
+html = `
 
-`
 <div class="empty-cart">
 
 Your cart is empty.
@@ -747,35 +945,45 @@ Your cart is empty.
 Please select a product first.
 
 </div>
+
 `;
-
-
-document.getElementById(
-"grandTotal"
-).innerText=`₹${total}`;
 
 }
 
 
-/* ==================================================
+document.getElementById(
+"orderSummary"
+).innerHTML =
+html;
+
+
+document.getElementById(
+"grandTotal"
+).innerText =
+"₹" + total;
+
+}
+
+
+/* =================================================
    WHATSAPP ORDER
-================================================== */
+================================================= */
 
 function sendWhatsApp(){
 
-const name=
+const name =
 document.getElementById(
 "customerName"
 ).value.trim();
 
 
-const address=
+const address =
 document.getElementById(
 "customerAddress"
 ).value.trim();
 
 
-if(!name){
+if(name === ""){
 
 alert("Please enter your name.");
 
@@ -784,7 +992,7 @@ return;
 }
 
 
-if(!address){
+if(address === ""){
 
 alert("Please enter your delivery address.");
 
@@ -793,12 +1001,12 @@ return;
 }
 
 
-let total=0;
+let total = 0;
 
-let itemNumber=1;
+let itemNumber = 1;
 
 
-let orderText=
+let message =
 `🛒 *NEW ORDER*
 
 👤 Customer: ${name}
@@ -809,28 +1017,29 @@ let orderText=
 `;
 
 
-products.forEach(p=>{
+products.forEach(function(product){
 
-const qty=cart[p.id] || 0;
-
-
-if(qty>0){
-
-const itemTotal=
-p.price*qty;
-
-total+=itemTotal;
+const quantity =
+cart[product.id];
 
 
-orderText+=
-`────────────────────────
-*${itemNumber}. ${p.name}*
-Qty: ${qty}
-Price: ₹${p.price}
-*Total: ₹${itemTotal}*
-────────────────────────
+if(quantity > 0){
+
+const itemTotal =
+product.price * quantity;
+
+
+total += itemTotal;
+
+
+message +=
+`*${itemNumber}. ${product.name}*
+Qty: ${quantity}
+Price: ₹${product.price}
+Total: ₹${itemTotal}
 
 `;
+
 
 itemNumber++;
 
@@ -839,16 +1048,18 @@ itemNumber++;
 });
 
 
-if(total===0){
+if(total === 0){
 
-alert("Please select at least one product.");
+alert(
+"Please select at least one product."
+);
 
 return;
 
 }
 
 
-orderText+=
+message +=
 `💰 *GRAND TOTAL: ₹${total}*
 
 📝 Note: Extra courier charges may apply depending on the delivery location.
@@ -856,29 +1067,29 @@ orderText+=
 Please confirm my order.`;
 
 
-const whatsappURL=
-`https://wa.me/${WHATSAPP_NUMBER}?text=${
-encodeURIComponent(orderText)
-}`;
+const url =
+"https://wa.me/" +
+WHATSAPP_NUMBER +
+"?text=" +
+encodeURIComponent(message);
 
 
-window.open(
-whatsappURL,
-"_blank"
-);
+window.open(url,"_blank");
 
 }
 
 
-/* ==================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-================================================== */
+/* =================================================
+   CLOSE MODAL OUTSIDE
+================================================= */
 
-document
-.getElementById("cartModal")
-.addEventListener("click",function(e){
+document.getElementById(
+"cartModal"
+).addEventListener(
+"click",
+function(event){
 
-if(e.target===this){
+if(event.target === this){
 
 closeCart();
 
@@ -887,14 +1098,16 @@ closeCart();
 });
 
 
-/* ==================================================
-   START WEBSITE
-================================================== */
+/* =================================================
+   START
+================================================= */
 
 displayProducts();
+
 updateCartCount();
 
 </script>
+
 
 </body>
 </html>
