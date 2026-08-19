@@ -119,68 +119,47 @@ width:100%;padding:12px;margin-bottom:10px;
 border:1px solid #ddd;border-radius:8px;font-size:15px;outline:0
 }
 
-.customer-form textarea{
-height:75px;resize:none
-}
+.customer-form textarea{ height:75px;resize:none}
 
 .customer-form input:focus,
-.customer-form textarea:focus{
-border-color:#25D366
-}
+.customer-form textarea:focus{border-color:#25D366}
 
-.order-summary{
-margin-top:10px;border-top:1px solid #eee;padding-top:12px
-}
+.order-summary{margin-top:10px;border-top:1px solid #eee;padding-top:12px}
 
 .order-item{
-display:flex;justify-content:space-between;padding:8px 0;
-border-bottom:1px solid #eee;font-size:14px
-}
+	display:flex;justify-content:space-between;padding:8px 0;
+	border-bottom:1px solid #eee;font-size:14px}
 
 .order-item-name{font-weight:bold}
 
 .order-total{
-display:flex;justify-content:space-between;
-font-size:20px;font-weight:bold;margin-top:15px
-}
+	display:flex;justify-content:space-between;
+	font-size:20px;font-weight:bold;margin-top:15px}
 
 .whatsapp-button{
-width:100%;background:#25D366;color:#fff;border:0;
-padding:14px;border-radius:10px;font-size:16px;
-font-weight:bold;cursor:pointer;margin-top:15px
-}
+	width:100%;background:#25D366;color:#fff;border:0;
+	padding:14px;border-radius:10px;font-size:16px;
+	font-weight:bold;cursor:pointer;margin-top:15px}
 
-.empty-cart{
-text-align:center;color:#777;padding:20px 5px
-}
+.empty-cart{text-align:center;color:#777;padding:20px 5px}
 
-@media(min-width:700px){
-.products{grid-template-columns:repeat(4,1fr)}
-}
+@media(min-width:700px){.products{grid-template-columns:repeat(4,1fr)}}
 
 @media(max-width:450px){
-.shop-name{font-size:18px}
-.cart-button{padding:9px 12px;font-size:14px}
-.product-info{padding:9px}
-.product-name{font-size:14px}
-.price{font-size:17px}
-}
-</style>
-</head>
+	.shop-name{font-size:18px}
+	.cart-button{padding:9px 12px;font-size:14px}
+	.product-info{padding:9px}
+	.product-name{font-size:14px}
+	.price{font-size:17px}}
 
-<body>
+</style> </head> <body> <header>
 
-<header>
 <div class="header-content">
-
 <div class="shop-name">🛍️ Megical Floor Art</div>
-
 <button class="cart-button" onclick="openCart()">
 🛒 Cart <span id="cartCount">0</span>
-</button>
 
-</div>
-</header>
+</button> </div> </header>
 
 <div class="container">
 <div class="products" id="products"></div>
@@ -189,27 +168,18 @@ text-align:center;color:#777;padding:20px 5px
 <!-- CART -->
 
 <div class="modal" id="cartModal">
-
 <div class="modal-content">
-
 <div class="modal-header">
 <h2>🛒 Your Order</h2>
 <button class="close" onclick="closeCart()">×</button>
 </div>
-
 <div class="form-title">Customer Details</div>
-
 <div class="customer-form">
 
 <input
 type="text"
 id="customerName"
 placeholder="Enter your name">
-
-<input
-type="tel"
-id="customerPhone"
-placeholder="Enter mobile number">
 
 <textarea
 id="customerAddress"
@@ -225,69 +195,46 @@ placeholder="Enter delivery address"></textarea>
 </div>
 
 <button
-class="whatsapp-button"
-onclick="sendWhatsApp()">
+class="whatsapp-button" onclick="sendWhatsApp()">
 
 📲 Submit Order on WhatsApp
 
 </button>
 
-</div>
-</div>
+</div> </div>
 
 <script>
 
-/*----- WHATSAPP NUMBER -----*/
+/* ----- WHATSAPP NUMBER ----- */
 
 const WHATSAPP_NUMBER="917507611433";
 
 
-/* ==================================================
-   IMAGE FUNCTION
-   UPDATE PRODUCT IMAGES HERE ONLY
-================================================== */
+/* ----- UPDATE PPRODUCTS IMAGE, NAME & PRICE ----- */
 
 function PRODUCT_IMAGES(){
 
-return{
+/* -----  ----- */
+const products = [
+  {
+    id: 1,
+    name: "Product A",
+    price: 150,
+    images: [
+      "images/product1-1.jpg",
+      "images/product1-2.jpg",
+      "images/product1-3.jpg"
+	  ]},
 
-1:[
-"https://raw.githubusercontent.com/sanketkhardkar/megicalfloorart/main/images/product1-1.jpg",
-"images/product1-2.jpg",
-"images/product1-3.jpg"
-],
-
-2:[
-"images/product2-1.jpg",
-"images/product2-2.jpg",
-"images/product2-3.jpg"
-]
-
-};
-
-}
-
-
-/* ==================================================
-   PRODUCTS
-   NAME & PRICE ONLY
-================================================== */
-
-const products=[
-
-{
-id:1,
-name:"Product A",
-price:150,
-images:PRODUCT_IMAGES()[1]
-},
-
-{
-id:2,
-name:"Product B",
-price:250,
-images:PRODUCT_IMAGES()[2]
-}
+  {
+    id: 2,
+    name: "Product B",
+    price: 250,
+    images: [
+      "images/product2-1.jpg",
+      "images/product2-2.jpg",
+      "images/product2-3.jpg"
+	  ]}
 
 ];
 
@@ -585,9 +532,6 @@ const name=
 document.getElementById("customerName")
 .value.trim();
 
-const phone=
-document.getElementById("customerPhone")
-.value.trim();
 
 const address=
 document.getElementById("customerAddress")
@@ -596,9 +540,6 @@ document.getElementById("customerAddress")
 
 if(!name)
 return alert("Please enter your name.");
-
-if(!phone)
-return alert("Please enter your mobile number.");
 
 if(!address)
 return alert("Please enter your delivery address.");
@@ -612,7 +553,6 @@ let orderText=
 `🛒 *NEW ORDER*
 
 👤 Customer: ${name}
-📱 Mobile: ${phone}
 📍 Address: ${address}
 
 📦 *ORDER DETAILS*
@@ -659,17 +599,11 @@ orderText+=
 Please confirm my order.`;
 
 
-window.open(
-`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`,
-"_blank"
-);
-
+window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`,"_blank");
 }
 
 
-/* ==================================================
-   CLOSE MODAL
-================================================== */
+/* ----- CLOSE MODAL ----- */
 
 document
 .getElementById("cartModal")
@@ -681,9 +615,7 @@ closeCart();
 });
 
 
-/* ==================================================
-   START
-================================================== */
+/* ----- START ----- */
 
 displayProducts();
 updateCartCount();
