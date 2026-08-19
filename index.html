@@ -1,154 +1,1217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Megical Floor Art</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#f5f5f5;color:#222}header{background:#111827;color:#fff;padding:12px 15px;position:sticky;top:0;z-index:1000}.header-content{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between}.shop-name{font-size:21px;font-weight:bold}.cart-button{background:#25D366;color:#fff;border:0;border-radius:25px;padding:10px 15px;font-size:15px;font-weight:bold;cursor:pointer}.container{max-width:1100px;margin:auto;padding:15px}.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.product{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #0001}.slider{position:relative;aspect-ratio:1;overflow:hidden;background:#eee;touch-action:pan-y}.slider img{width:100%;height:100%;object-fit:cover;display:block}.arrow{position:absolute;top:50%;transform:translateY(-50%);background:#0007;color:#fff;border:0;width:34px;height:34px;border-radius:50%;font-size:22px;cursor:pointer}.prev{left:8px}.next{right:8px}.dots{position:absolute;bottom:8px;width:100%;text-align:center}.dot{display:inline-block;width:7px;height:7px;background:#fff;border-radius:50%;margin:3px;opacity:.5}.dot.active{opacity:1}.product-info{padding:12px}.product-name{font-size:16px;font-weight:bold}.price{color:#16a34a;font-size:18px;font-weight:bold;margin-top:6px}.quantity{display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:8px;overflow:hidden;margin-top:10px}.quantity button{width:40px;height:38px;border:0;background:#f3f4f6;font-size:21px;cursor:pointer}.quantity span{font-weight:bold}.modal{display:none;position:fixed;z-index:2000;inset:0;background:#0009;padding:15px;overflow-y:auto}.modal.show{display:flex;align-items:center;justify-content:center}.modal-content{background:#fff;width:100%;max-width:500px;border-radius:16px;padding:20px;max-height:90vh;overflow-y:auto}.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.modal-header h2{font-size:21px}.close{border:0;background:#f3f4f6;width:35px;height:35px;border-radius:50%;font-size:22px;cursor:pointer}.form-title{font-size:16px;font-weight:bold;margin-bottom:10px}.customer-form input,.customer-form textarea{width:100%;padding:12px;margin-bottom:10px;border:1px solid #ddd;border-radius:8px;font-size:15px;outline:0}.customer-form textarea{height:75px;resize:none}.order-summary{margin-top:10px;border-top:1px solid #eee;padding-top:12px}.order-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:14px}.order-item-name{font-weight:bold}.order-total{display:flex;justify-content:space-between;font-size:20px;font-weight:bold;margin-top:15px}.empty-cart{text-align:center;color:#777;padding:20px 5px}.whatsapp-button{width:100%;background:#25D366;color:#fff;border:0;padding:14px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:15px}@media(min-width:700px){.products{grid-template-columns:repeat(4,1fr)}}@media(max-width:450px){.shop-name{font-size:18px}.cart-button{padding:9px 12px;font-size:14px}.product-info{padding:9px}.product-name{font-size:14px}.price{font-size:17px}}
+
+/* =========================================================
+   BASIC PAGE SETTINGS
+========================================================= */
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+color:#222
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+background:#111827;
+color:#fff;
+padding:12px 15px;
+position:sticky;
+top:0;
+z-index:1000
+}
+
+.header-content{
+max-width:1100px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between
+}
+
+.shop-name{
+font-size:21px;
+font-weight:bold
+}
+
+
+/* =========================================================
+   HEADER BUTTONS
+========================================================= */
+
+.header-buttons{
+display:flex;
+align-items:center;
+gap:8px
+}
+
+
+/* =========================================================
+   INSTAGRAM BUTTON
+   Change Instagram link in HTML below
+========================================================= */
+
+.instagram-button{
+background:#E1306C;
+color:#fff;
+border:0;
+border-radius:25px;
+padding:10px 15px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+text-decoration:none;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+
+/* =========================================================
+   CART BUTTON
+========================================================= */
+
+.cart-button{
+background:#25D366;
+color:#fff;
+border:0;
+border-radius:25px;
+padding:10px 15px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer
+}
+
+
+/* =========================================================
+   PRODUCT CONTAINER
+========================================================= */
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:15px
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px
+}
+
+.product{
+background:#fff;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 3px 12px #0001
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE SLIDER
+========================================================= */
+
+.slider{
+position:relative;
+aspect-ratio:1;
+overflow:hidden;
+background:#eee;
+touch-action:pan-y
+}
+
+.slider img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+
+/* Previous / Next Image Buttons */
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:#0007;
+color:#fff;
+border:0;
+width:34px;
+height:34px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer
+}
+
+.prev{left:8px}
+.next{right:8px}
+
+
+/* Image Slider Dots */
+
+.dots{
+position:absolute;
+bottom:8px;
+width:100%;
+text-align:center
+}
+
+.dot{
+display:inline-block;
+width:7px;
+height:7px;
+background:#fff;
+border-radius:50%;
+margin:3px;
+opacity:.5
+}
+
+.dot.active{
+opacity:1
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+========================================================= */
+
+.product-info{
+padding:12px
+}
+
+.product-name{
+font-size:16px;
+font-weight:bold
+}
+
+.price{
+color:#16a34a;
+font-size:18px;
+font-weight:bold;
+margin-top:6px
+}
+
+
+/* =========================================================
+   QUANTITY + / - BUTTONS
+========================================================= */
+
+.quantity{
+display:flex;
+align-items:center;
+justify-content:space-between;
+border:1px solid #ddd;
+border-radius:8px;
+overflow:hidden;
+margin-top:10px
+}
+
+.quantity button{
+width:40px;
+height:38px;
+border:0;
+background:#f3f4f6;
+font-size:21px;
+cursor:pointer
+}
+
+.quantity span{
+font-weight:bold
+}
+
+
+/* =========================================================
+   CART POPUP / MODAL
+========================================================= */
+
+.modal{
+display:none;
+position:fixed;
+z-index:2000;
+inset:0;
+background:#0009;
+padding:15px;
+overflow-y:auto
+}
+
+.modal.show{
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.modal-content{
+background:#fff;
+width:100%;
+max-width:500px;
+border-radius:16px;
+padding:20px;
+max-height:90vh;
+overflow-y:auto
+}
+
+
+/* =========================================================
+   CART POPUP HEADER
+========================================================= */
+
+.modal-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px
+}
+
+.modal-header h2{
+font-size:21px
+}
+
+.close{
+border:0;
+background:#f3f4f6;
+width:35px;
+height:35px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer
+}
+
+
+/* =========================================================
+   CUSTOMER FORM
+========================================================= */
+
+.form-title{
+font-size:16px;
+font-weight:bold;
+margin-bottom:10px
+}
+
+.customer-form input,
+.customer-form textarea{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:15px;
+outline:0
+}
+
+.customer-form textarea{
+height:75px;
+resize:none
+}
+
+
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+.order-summary{
+margin-top:10px;
+border-top:1px solid #eee;
+padding-top:12px
+}
+
+.order-item{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #eee;
+font-size:14px
+}
+
+.order-item-name{
+font-weight:bold
+}
+
+
+/* =========================================================
+   GRAND TOTAL
+========================================================= */
+
+.order-total{
+display:flex;
+justify-content:space-between;
+font-size:20px;
+font-weight:bold;
+margin-top:15px
+}
+
+
+/* Empty Cart Message */
+
+.empty-cart{
+text-align:center;
+color:#777;
+padding:20px 5px
+}
+
+
+/* =========================================================
+   WHATSAPP SUBMIT BUTTON
+========================================================= */
+
+.whatsapp-button{
+width:100%;
+background:#25D366;
+color:#fff;
+border:0;
+padding:14px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px
+}
+
+
+/* =========================================================
+   DESKTOP VIEW
+   4 products per row
+========================================================= */
+
+@media(min-width:700px){
+.products{
+grid-template-columns:repeat(4,1fr)
+}
+}
+
+
+/* =========================================================
+   MOBILE VIEW
+========================================================= */
+
+@media(max-width:450px){
+
+.shop-name{
+font-size:18px
+}
+
+.cart-button{
+padding:9px 12px;
+font-size:14px
+}
+
+.product-info{
+padding:9px
+}
+
+.product-name{
+font-size:14px
+}
+
+.price{
+font-size:17px
+}
+
+.instagram-button{
+width:36px;
+height:36px;
+font-size:18px
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
-<header><div class="header-content"><div class="shop-name">🛍️ Megical Floor Art</div><button class="cart-button" onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button></div></header>
 
-<div class="container"><div class="products" id="products"></div></div>
+<!-- ========================================================
+     HEADER
+========================================================= -->
 
-<div class="modal" id="cartModal"><div class="modal-content">
-<div class="modal-header"><h2>🛒 Your Order</h2><button class="close" onclick="closeCart()">×</button></div>
-<div class="form-title">Customer Details</div>
-<div class="customer-form"><input id="customerName" type="text" placeholder="Enter your name"><textarea id="customerAddress" placeholder="Enter delivery address"></textarea></div>
-<div class="order-summary" id="orderSummary"></div>
-<div class="order-total"><span>Grand Total</span><span id="grandTotal">₹0</span></div>
-<button class="whatsapp-button" onclick="sendWhatsApp()">📲 Submit Order on WhatsApp</button>
-</div></div>
+<header>
+
+<div class="header-content">
+
+<!-- SHOP NAME -->
+<div class="shop-name">
+🛍️ Megical Floor Art
+</div>
+
+
+<div class="header-buttons">
+
+
+<!-- ======================================================
+     CART BUTTON
+
+     Cart count automatically changes when
+     products are added.
+======================================================= -->
+
+<button
+class="cart-button"
+onclick="openCart()">
+
+🛒 Cart <span id="cartCount">0</span>
+
+</button>
+
+<!-- ======================================================
+     INSTAGRAM BUTTON
+
+     CHANGE YOUR INSTAGRAM LINK HERE
+
+     Example:
+     https://www.instagram.com/megicalfloorart/
+======================================================= -->
+
+<a
+class="instagram-button"
+href="https://www.instagram.com/magicalfloorart/"
+target="_blank"
+rel="noopener"
+aria-label="Instagram">
+🌐 Follow Us
+</a>
+
+
+
+
+</div>
+</div>
+
+</header>
+
+
+<!-- ========================================================
+     PRODUCT AREA
+
+     Products are automatically displayed here using
+     JavaScript below.
+========================================================= -->
+
+<div class="container">
+
+<div
+class="products"
+id="products">
+</div>
+
+</div>
+
+
+<!-- ========================================================
+     CART POPUP
+========================================================= -->
+
+<div
+class="modal"
+id="cartModal">
+
+<div class="modal-content">
+
+
+<!-- CART HEADER -->
+
+<div class="modal-header">
+
+<h2>🛒 Your Order</h2>
+
+<button
+class="close"
+onclick="closeCart()">
+×
+</button>
+
+</div>
+
+
+<!-- CUSTOMER DETAILS -->
+
+<div class="form-title">
+Customer Details
+</div>
+
+<div class="customer-form">
+
+<input
+id="customerName"
+type="text"
+placeholder="Enter your name">
+
+<textarea
+id="customerAddress"
+placeholder="Enter delivery address">
+</textarea>
+
+</div>
+
+
+<!-- ORDER ITEMS -->
+
+<div
+class="order-summary"
+id="orderSummary">
+</div>
+
+
+<!-- GRAND TOTAL -->
+
+<div class="order-total">
+
+<span>Grand Total</span>
+
+<span id="grandTotal">
+₹0
+</span>
+
+</div>
+
+
+<!-- WHATSAPP BUTTON -->
+
+<button
+class="whatsapp-button"
+onclick="sendWhatsApp()">
+
+📲 Submit Order on WhatsApp
+
+</button>
+
+</div>
+</div>
+
 
 <script>
 
-/*-----------Upload Image and Details Here -----------*/
+
+/* =========================================================
+   PRODUCT DETAILS
+   =========================================================
+
+   THIS IS THE MAIN AREA YOU WILL UPDATE IN FUTURE.
+
+   To add a new product, copy one product block and
+   change:
+
+   1. id
+   2. name
+   3. price
+   4. image names
+
+========================================================= */
+
+
 const products=[
-{id:1,
-	name:"Product A",
-	price:150,
-	images:["images/product1-1.jpg",
-			"images/product1-2.jpg",
-			"images/product1-3.jpg"]},
-			
-{id:2,
-	name:"Product B",
-	price:250,
-	images:["images/product2-1.jpg",
-			"images/product2-2.jpg",
-			"images/product2-3.jpg"]}
+
+
+/* =========================================================
+   PRODUCT 1
+========================================================= */
+
+{
+id:1,
+
+name:"Product A",
+
+price:150,
+
+images:[
+"images/product1-1.jpg",
+"images/product1-2.jpg",
+"images/product1-3.jpg"
+]
+
+},
+
+
+/* =========================================================
+   PRODUCT 2
+========================================================= */
+
+{
+id:2,
+
+name:"Product B",
+
+price:250,
+
+images:[
+"images/product2-1.jpg",
+"images/product2-2.jpg",
+"images/product2-3.jpg"
+]
+
+}
+
+
+/* =========================================================
+   ADD MORE PRODUCTS HERE
+
+   Example:
+
+   ,{
+   id:3,
+   name:"Product C",
+   price:300,
+   images:[
+   "images/product3-1.jpg",
+   "images/product3-2.jpg",
+   "images/product3-3.jpg"
+   ]
+   }
+
+========================================================= */
+
 ];
 
-const cart={},imageIndex={};let touchX=0;
 
-products.forEach(p=>{cart[p.id]=0;imageIndex[p.id]=0});
+/* =========================================================
+   CART & IMAGE VARIABLES
+========================================================= */
 
-function displayProducts(){
-const box=document.getElementById("products");
-box.innerHTML=products.map(p=>`
-<div class="product">
-<div class="slider" data-id="${p.id}">
-<img id="image-${p.id}" src="${p.images[0]}" alt="${p.name}">
-<button class="arrow prev" onclick="previousImage(${p.id})">‹</button>
-<button class="arrow next" onclick="nextImage(${p.id})">›</button>
-<div class="dots">${p.images.map((_,i)=>`<span class="dot ${i?'':'active'}" id="dot-${p.id}-${i}"></span>`).join("")}</div>
-</div>
-<div class="product-info">
-<div class="product-name">${p.name}</div>
-<div class="price">₹${p.price}</div>
-<div class="quantity"><button onclick="changeQuantity(${p.id},-1)">−</button><span id="qty-${p.id}">0</span><button onclick="changeQuantity(${p.id},1)">+</button></div>
-</div>
-</div>`).join("");
+const cart={};
+const imageIndex={};
+
+let touchX=0;
+
+
+/* Create initial cart quantity */
 
 products.forEach(p=>{
-const s=document.querySelector(`.slider[data-id="${p.id}"]`);
-s.ontouchstart=e=>touchX=e.touches[0].clientX;
-s.ontouchend=e=>{let d=touchX-e.changedTouches[0].clientX;if(Math.abs(d)>40)d>0?nextImage(p.id):previousImage(p.id)};
+
+cart[p.id]=0;
+imageIndex[p.id]=0;
+
 });
+
+
+/* =========================================================
+   DISPLAY PRODUCTS
+========================================================= */
+
+function displayProducts(){
+
+const box=document.getElementById("products");
+
+
+/* Create product cards */
+
+box.innerHTML=products.map(p=>`
+
+<div class="product">
+
+
+<!-- PRODUCT IMAGE -->
+
+<div
+class="slider"
+data-id="${p.id}">
+
+<img
+id="image-${p.id}"
+src="${p.images[0]}"
+alt="${p.name}">
+
+
+<!-- PREVIOUS IMAGE -->
+
+<button
+class="arrow prev"
+onclick="previousImage(${p.id})">
+‹
+</button>
+
+
+<!-- NEXT IMAGE -->
+
+<button
+class="arrow next"
+onclick="nextImage(${p.id})">
+›
+</button>
+
+
+<!-- IMAGE DOTS -->
+
+<div class="dots">
+
+${p.images.map((_,i)=>`
+
+<span
+class="dot ${i?'':'active'}"
+id="dot-${p.id}-${i}">
+</span>
+
+`).join("")}
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT DETAILS -->
+
+<div class="product-info">
+
+
+<!-- PRODUCT NAME -->
+
+<div class="product-name">
+${p.name}
+</div>
+
+
+<!-- PRODUCT PRICE -->
+
+<div class="price">
+₹${p.price}
+</div>
+
+
+<!-- QUANTITY -->
+
+<div class="quantity">
+
+<button
+onclick="changeQuantity(${p.id},-1)">
+−
+</button>
+
+<span id="qty-${p.id}">
+0
+</span>
+
+<button
+onclick="changeQuantity(${p.id},1)">
++
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+
+/* =========================================================
+   MOBILE IMAGE SWIPE
+========================================================= */
+
+products.forEach(p=>{
+
+const s=document.querySelector(
+`.slider[data-id="${p.id}"]`
+);
+
+
+/* Start touch */
+
+s.ontouchstart=e=>
+touchX=e.touches[0].clientX;
+
+
+/* End touch */
+
+s.ontouchend=e=>{
+
+let d=
+touchX-e.changedTouches[0].clientX;
+
+if(Math.abs(d)>40){
+
+d>0
+?nextImage(p.id)
+:previousImage(p.id);
+
 }
+
+};
+
+});
+
+}
+
+
+/* =========================================================
+   UPDATE PRODUCT IMAGE
+========================================================= */
 
 function updateImage(id){
-const p=products.find(x=>x.id===id),i=imageIndex[id];
-document.getElementById(`image-${id}`).src=p.images[i];
-p.images.forEach((_,n)=>document.getElementById(`dot-${id}-${n}`).classList.toggle("active",n===i));
+
+const p=products.find(x=>x.id===id);
+
+const i=imageIndex[id];
+
+
+/* Change image */
+
+document.getElementById(
+`image-${id}`
+).src=p.images[i];
+
+
+/* Change active dot */
+
+p.images.forEach((_,n)=>{
+
+document
+.getElementById(`dot-${id}-${n}`)
+.classList
+.toggle("active",n===i);
+
+});
+
 }
+
+
+/* =========================================================
+   NEXT IMAGE
+========================================================= */
 
 function nextImage(id){
+
 const p=products.find(x=>x.id===id);
-imageIndex[id]=(imageIndex[id]+1)%p.images.length;
+
+imageIndex[id]=
+(imageIndex[id]+1)%p.images.length;
+
 updateImage(id);
+
 }
+
+
+/* =========================================================
+   PREVIOUS IMAGE
+========================================================= */
 
 function previousImage(id){
+
 const p=products.find(x=>x.id===id);
-imageIndex[id]=(imageIndex[id]-1+p.images.length)%p.images.length;
+
+imageIndex[id]=
+(imageIndex[id]-1+p.images.length)
+%p.images.length;
+
 updateImage(id);
+
 }
+
+
+/* =========================================================
+   CHANGE PRODUCT QUANTITY
+========================================================= */
 
 function changeQuantity(id,n){
-cart[id]=Math.max(0,cart[id]+n);
-document.getElementById(`qty-${id}`).innerText=cart[id];
+
+cart[id]=
+Math.max(0,cart[id]+n);
+
+
+/* Update quantity shown on product */
+
+document.getElementById(
+`qty-${id}`
+).innerText=cart[id];
+
+
+/* Update cart count */
+
 updateCartCount();
+
 }
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
 
 function updateCartCount(){
-document.getElementById("cartCount").innerText=Object.values(cart).reduce((a,b)=>a+b,0);
+
+document.getElementById("cartCount")
+.innerText=
+Object.values(cart)
+.reduce((a,b)=>a+b,0);
+
 }
+
+
+/* =========================================================
+   OPEN CART
+========================================================= */
 
 function openCart(){
+
 updateOrderSummary();
-document.getElementById("cartModal").classList.add("show");
+
+document
+.getElementById("cartModal")
+.classList
+.add("show");
+
 }
+
+
+/* =========================================================
+   CLOSE CART
+========================================================= */
 
 function closeCart(){
-document.getElementById("cartModal").classList.remove("show");
+
+document
+.getElementById("cartModal")
+.classList
+.remove("show");
+
 }
+
+
+/* =========================================================
+   CREATE ORDER SUMMARY
+========================================================= */
 
 function updateOrderSummary(){
-let total=0;
-const html=products.filter(p=>cart[p.id]>0).map(p=>{
-const t=p.price*cart[p.id];total+=t;
-return `<div class="order-item"><div><div class="order-item-name">${p.name}</div>Qty: ${cart[p.id]}</div><div>₹${t}</div></div>`;
-}).join("");
 
-document.getElementById("orderSummary").innerHTML=html||`<div class="empty-cart">Your cart is empty.<br><br>Please select a product first.</div>`;
-document.getElementById("grandTotal").innerText=`₹${total}`;
+let total=0;
+
+
+const html=
+products
+.filter(p=>cart[p.id]>0)
+.map(p=>{
+
+const t=
+p.price*cart[p.id];
+
+total+=t;
+
+
+return `
+
+<div class="order-item">
+
+<div>
+
+<div class="order-item-name">
+${p.name}
+</div>
+
+Qty: ${cart[p.id]}
+
+</div>
+
+<div>
+₹${t}
+</div>
+
+</div>
+
+`;
+
+})
+.join("");
+
+
+/* Show empty cart message */
+
+document.getElementById(
+"orderSummary"
+).innerHTML=
+
+html||
+
+`<div class="empty-cart">
+
+Your cart is empty.
+
+<br><br>
+
+Please select a product first.
+
+</div>`;
+
+
+/* Show total */
+
+document.getElementById(
+"grandTotal"
+).innerText=`₹${total}`;
+
 }
+
+
+/* =========================================================
+   SEND ORDER TO WHATSAPP
+========================================================= */
 
 function sendWhatsApp(){
-	const name=document.getElementById("customerName").value.trim();
-	const address=document.getElementById("customerAddress").value.trim();
 
-	if(!name)return alert("Please enter your name.");
-	if(!address)return alert("Please enter your delivery address.");
 
-	let total=0,n=1;
-	let message=`🛒 *NEW ORDER*\n\n👤 Customer: ${name}\n📍 Address: ${address}\n\n📦 *ORDER DETAILS*\n\n`;
+/* Get customer name */
 
-	products.forEach(p=>{
-	const q=cart[p.id];
-	if(q){
-	const t=p.price*q;
-	total+=t;
-	message+=`*${n}. ${p.name}*\nQty: ${q}\nPrice: ₹${p.price}\nTotal: ₹${t}\n\n`;
-	n++;
-	}
-	});
+const name=
+document
+.getElementById("customerName")
+.value
+.trim();
 
-	if(!total)return alert("Please select at least one product.");
 
-	message+=`💰 *GRAND TOTAL: ₹${total}*\n\n📝 <b>Note</b>: Extra courier charges may apply depending on the delivery location.\n\nPlease confirm my order.`;
+/* Get customer address */
 
-	window.open(`https://wa.me/${+917507611433}?text=${encodeURIComponent(message)}`,"_blank");
+const address=
+document
+.getElementById("customerAddress")
+.value
+.trim();
+
+
+/* Check customer name */
+
+if(!name){
+
+return alert(
+"Please enter your name."
+);
+
 }
 
-document.getElementById("cartModal").onclick=e=>{if(e.target===e.currentTarget)closeCart()};
+
+/* Check address */
+
+if(!address){
+
+return alert(
+"Please enter your delivery address."
+);
+
+}
+
+
+let total=0;
+let n=1;
+
+
+/* WhatsApp message starts here */
+
+let message=
+`🛒 *NEW ORDER*\n\n`+
+`👤 Customer: ${name}\n`+
+`📍 Address: ${address}\n\n`+
+`📦 *ORDER DETAILS*\n\n`;
+
+
+/* =========================================================
+   ADD SELECTED PRODUCTS TO WHATSAPP MESSAGE
+========================================================= */
+
+products.forEach(p=>{
+
+const q=cart[p.id];
+
+
+if(q){
+
+const t=
+p.price*q;
+
+total+=t;
+
+
+/* Add product details */
+
+message+=
+`*${n}. ${p.name}*\n`+
+`Qty: ${q}\n`+
+`Price: ₹${p.price}\n`+
+`Total: ₹${t}\n\n`;
+
+n++;
+
+}
+
+});
+
+
+/* Check if cart is empty */
+
+if(!total){
+
+return alert(
+"Please select at least one product."
+);
+
+}
+
+
+/* =========================================================
+   FINAL WHATSAPP MESSAGE
+========================================================= */
+
+message+=
+`💰 *GRAND TOTAL: ₹${total}*\n\n`+
+`📝 *Note:* Extra courier charges may apply `+
+`depending on the delivery location.\n\n`+
+`Please confirm my order.`;
+
+
+/* =========================================================
+   WHATSAPP NUMBER
+   =========================================================
+
+   Current number:
+   +91 7507611433
+
+   To change the number in future, change only:
+
+   917507611433
+
+========================================================= */
+
+
+/* Open WhatsApp */
+
+window.open(
+`https://wa.me/917507611433?text=${encodeURIComponent(message)}`,
+"_blank"
+);
+
+}
+
+
+/* =========================================================
+   CLOSE CART WHEN CLICKING OUTSIDE POPUP
+========================================================= */
+
+document
+.getElementById("cartModal")
+.onclick=e=>{
+
+if(e.target===e.currentTarget)
+closeCart();
+
+};
+
+
+/* =========================================================
+   START WEBSITE
+========================================================= */
 
 displayProducts();
+
 updateCartCount();
+
 </script>
 
 </body>
