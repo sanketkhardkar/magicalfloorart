@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
+<title>Magical Floor Art - Gallery</title>
+<style>
+:root {
+  --bg-dark: #111827; --bg-app: #f4f5f7; --accent-gold: #f59e0b;
+  --text-main: #1f2937; --text-muted: #6b7280; --border-light: #e5e7eb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background: var(--bg-app); color: var(--text-main); padding-bottom: 75px; text-align: center; }
+
+header { background: var(--bg-dark); padding: 16px; color: #fff; font-weight: 800; font-size: 1.1rem; }
+.container { max-width: 500px; margin: 40px auto; padding: 24px; background: #ffffff; border-radius: 12px; border: 1px solid var(--border-light); }
+
+.gallery-btn { display: inline-block; background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-top: 16px; }
+
+.bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-content: space-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
+.app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af; text-decoration: none; font-size: 0.68rem; flex: 1; height: 100%; position: relative; font-weight: 500; }
+.app-tab.active { color: var(--accent-gold); font-weight: 700; }
+.app-tab.active::before { content: ""; position: absolute; top: 0; width: 28px; height: 3px; background: var(--accent-gold); border-radius: 0 0 3px 3px; }
+.tab-icon { font-size: 1.15rem; margin-bottom: 2px; }
+.badge-cart { position: absolute; top: 4px; right: 50%; transform: translateX(10px); background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; border-radius: 10px; padding: 1px 5px; min-width: 15px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>Instagram Gallery</header>
+
+<div class="container">
+  <h2>🎨 Explore Our Social Showcase</h2>
+  <p style="color: var(--text-muted); margin-top: 8px; font-size: 0.85rem;">View our latest handcrafted designs, custom installations, and behind-the-scenes creation videos.</p>
+  <a class="gallery-btn" href="https://www.instagram.com/magicalfloorart/" target="_blank" rel="noopener">
+    Visit @magicalfloorart
+  </a>
+</div>
+
+<nav class="bottom-app-nav">
+  <a class="app-tab" href="index.html">
+    <span class="tab-icon">🏠</span>
+    <span>Home</span>
+  </a>
+  <a class="app-tab" href="whatsapp.html">
+    <span class="tab-icon">🛒</span>
+    <span>Cart</span>
+    <span class="badge-cart" id="cartBadge">0</span>
+  </a>
+  <a class="app-tab active" href="gallery.html">
+    <span class="tab-icon">🎨</span>
+    <span>Gallery</span>
+  </a>
+</nav>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || {};
+const count = Object.values(cart).reduce((a,b) => a + b, 0);
+document.getElementById("cartBadge").innerText = count;
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
+<title>Magical Floor Art - Order via WhatsApp</title>
+<style>
+:root {
+  --bg-dark: #111827; --bg-app: #f4f5f7; --surface: #ffffff;
+  --accent-gold: #f59e0b; --accent-whatsapp: #25d366; --text-main: #1f2937;
+  --text-muted: #6b7280; --border-light: #e5e7eb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background: var(--bg-app); color: var(--text-main); padding-bottom: 75px; }
+
+header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: center; font-weight: 800; font-size: 1.1rem; }
+.container { max-width: 500px; margin: 16px auto; padding: 18px; background: #ffffff; border-radius: 12px; border: 1px solid var(--border-light); }
+
+.drawer-header h3 { font-size: 1rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+.form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.85rem; outline: none; }
+
+.checkout-summary { border-top: 1px solid var(--border-light); padding-top: 8px; margin-top: 10px; }
+.cart-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 0.78rem; }
+.cart-table th { background: #f8fafc; color: var(--text-main); text-align: left; padding: 8px 6px; font-weight: 700; border-bottom: 2px solid var(--border-light); }
+.cart-table td { padding: 8px 6px; border-bottom: 1px solid var(--border-light); color: var(--text-main); vertical-align: middle; }
+.col-center { text-align: center; } .col-right { text-align: right; }
+
+.summary-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 800; color: #111827; padding-top: 10px; margin-top: 6px; }
+
+.btn-whatsapp { width: 100%; background: var(--accent-whatsapp); color: #fff; border: none; padding: 12px; border-radius: 24px; font-size: 0.9rem; font-weight: 800; cursor: pointer; margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); }
+
+.bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-content: space-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
+.app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af; text-decoration: none; font-size: 0.68rem; flex: 1; height: 100%; position: relative; font-weight: 500; }
+.app-tab.active { color: var(--accent-gold); font-weight: 700; }
+.app-tab.active::before { content: ""; position: absolute; top: 0; width: 28px; height: 3px; background: var(--accent-gold); border-radius: 0 0 3px 3px; }
+.tab-icon { font-size: 1.15rem; margin-bottom: 2px; }
+.badge-cart { position: absolute; top: 4px; right: 50%; transform: translateX(10px); background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; border-radius: 10px; padding: 1px 5px; min-width: 15px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>WhatsApp Order Checkout</header>
+
+<div class="container">
+  <div class="drawer-header">
+    <h3>Delivery Information</h3>
+  </div>
+  
+  <div class="form-group">
+    <label>Full Name</label>
+    <input type="text" id="custName" placeholder="Enter delivery name">
+  </div>
+  <div class="form-group">
+    <label>Delivery Address</label>
+    <textarea id="custAddress" rows="2" placeholder="Street, landmark, pincode"></textarea>
+  </div>
+
+  <div class="checkout-summary" id="checkoutList"></div>
+
+  <div class="summary-total-row">
+    <span>Grand Total:</span>
+    <span id="grandTotalDisplay" style="color:#ef4444;">₹0</span>
+  </div>
+
+  <button class="btn-whatsapp" onclick="proceedToWhatsApp()">
+    Send Order via WhatsApp
+  </button>
+</div>
+
+<nav class="bottom-app-nav">
+  <a class="app-tab" href="index.html">
+    <span class="tab-icon">🏠</span>
+    <span>Home</span>
+  </a>
+  <a class="app-tab active" href="whatsapp.html">
+    <span class="tab-icon">🛒</span>
+    <span>Cart</span>
+    <span class="badge-cart" id="cartBadge">0</span>
+  </a>
+  <a class="app-tab" href="gallery.html">
+    <span class="tab-icon">🎨</span>
+    <span>Gallery</span>
+  </a>
+</nav>
+
+<script>
+const products = [
+  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", price: 150 },
+  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", price: 250 },
+  { id: 3, name: "Royal Peacock Tile Marble Art Accent", price: 450 },
+  { id: 4, name: "Mandala Premium Floor Emblem", price: 320 }
+];
+
+let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+function updateCartBadge() {
+  const count = Object.values(cart).reduce((a,b) => a + b, 0);
+  document.getElementById("cartBadge").innerText = count;
+}
+
+function renderCartDrawer() {
+  let total = 0;
+  const activeItems = products.filter(p => cart[p.id] > 0);
+
+  if (activeItems.length === 0) {
+    document.getElementById("checkoutList").innerHTML = `<div style="text-align:center; color:#777; padding:15px 0;">Your cart is empty.</div>`;
+    document.getElementById("grandTotalDisplay").innerText = `₹0`;
+    return;
+  }
+
+  const tableRows = activeItems.map(p => {
+    const subtotal = p.price * cart[p.id];
+    total += subtotal;
+    return `
+      <tr>
+        <td><strong>${p.name}</strong></td>
+        <td class="col-center">${cart[p.id]}</td>
+        <td class="col-right">₹${p.price}</td>
+        <td class="col-right"><strong>₹${subtotal}</strong></td>
+      </tr>
+    `;
+  }).join('');
+
+  document.getElementById("checkoutList").innerHTML = `
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th class="col-center">Qty</th>
+          <th class="col-right">Price</th>
+          <th class="col-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${tableRows}
+      </tbody>
+    </table>
+  `;
+
+  document.getElementById("grandTotalDisplay").innerText = `₹${total}`;
+}
+
+function proceedToWhatsApp() {
+  const name = document.getElementById("custName").value.trim();
+  const address = document.getElementById("custAddress").value.trim();
+
+  if (!name || !address) return alert("Please fill in your delivery details.");
+
+  let total = 0;
+  let itemsFormatted = "";
+  let itemIndex = 1;
+
+  products.forEach(p => {
+    if (cart[p.id] > 0) {
+      const sub = p.price * cart[p.id];
+      total += sub;
+      itemsFormatted += `${itemIndex}. *${p.name}*\n   ├ Qty: ${cart[p.id]} × ₹${p.price}\n   └ Total: ₹${sub}\n`;
+      itemIndex++;
+    }
+  });
+
+  if (total === 0) return alert("Your cart is empty.");
+
+  const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
+
+  const whatsappNumber = "917507611433";
+  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+updateCartBadge();
+renderCartDrawer();
+</script>
+</body>
+</html>

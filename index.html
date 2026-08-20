@@ -3,222 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
-<title>Magical Floor Art</title>
+<title>Magical Floor Art - Home</title>
 <style>
-/* ==========================================================================
-   1. COLOR PALETTE & THEME VARIABLES
-   ========================================================================== */
 :root {
-  --bg-dark: #111827;         
-  --bg-app: #f4f5f7;            
-  --surface: #ffffff;         
-  --accent-gold: #f59e0b;     
-  --accent-whatsapp: #25d366;  
-  --text-main: #1f2937;        
-  --text-muted: #6b7280;       
-  --border-light: #e5e7eb;     
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --bg-dark: #111827; --bg-app: #f4f5f7; --surface: #ffffff;
+  --accent-gold: #f59e0b; --accent-whatsapp: #25d366; --text-main: #1f2937;
+  --text-muted: #6b7280; --border-light: #e5e7eb; --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg-app); color: var(--text-main); padding-bottom: 75px; }
 
-/* ==========================================================================
-   2. HEADER & CONTINUOUS RIGHT-TO-LEFT TICKER
-   ========================================================================== */
-header {
-  background: var(--bg-dark);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
-
-.brand-ticker-wrapper {
-  width: 100%;
-  overflow: hidden;
-  padding: 12px 0 6px 0;
-  display: flex;
-}
-
-.brand-ticker-content {
-  display: flex;
-  width: max-content;
-  gap: 32px;
-  padding-right: 32px;
-  animation: flowRightToLeft 15s linear infinite;
-}
-
+header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; }
+.brand-ticker-wrapper { width: 100%; overflow: hidden; padding: 12px 0 6px 0; display: flex; }
+.brand-ticker-content { display: flex; width: max-content; gap: 32px; padding-right: 32px; animation: flowRightToLeft 15s linear infinite; }
 .glowing-brand-text {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px;
   background: linear-gradient(90deg, #ff7e5f, #feb47b, #f59e0b, #38ef7d, #11998e, #ff7e5f);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
-  white-space: nowrap;
+  background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.2); white-space: nowrap;
 }
+@keyframes flowRightToLeft { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
 
-@keyframes flowRightToLeft {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Search & Filter Bar */
 .search-container { padding: 6px 12px 12px 12px; }
-.modern-search-bar {
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 20px;
-  overflow: hidden;
-  height: 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+.modern-search-bar { display: flex; align-items: center; background: #ffffff; border-radius: 20px; overflow: hidden; height: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 .search-icon { padding: 0 10px; color: #888; font-size: 0.85rem; }
-.modern-search-bar input {
-  flex: 1;
-  min-width: 60px;
-  border: none;
-  outline: none;
-  font-size: 0.82rem;
-  color: var(--text-main);
-}
-.filter-dropdown, .sort-dropdown {
-  border: none;
-  background: #f9fafb;
-  padding: 0 8px;
-  height: 100%;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  border-left: 1px solid var(--border-light);
-  outline: none;
-  max-width: 110px;
-}
+.modern-search-bar input { flex: 1; min-width: 60px; border: none; outline: none; font-size: 0.82rem; color: var(--text-main); }
+.filter-dropdown, .sort-dropdown { border: none; background: #f9fafb; padding: 0 8px; height: 100%; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); border-left: 1px solid var(--border-light); outline: none; max-width: 110px; }
 
-/* ==========================================================================
-   3. MAIN LAYOUT & HERO BANNER
-   ========================================================================== */
 .container { max-width: 800px; margin: auto; padding: 12px 8px; }
-
-.hero-banner {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 12px;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
+.hero-banner { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 12px; padding: 14px; margin-bottom: 12px; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
 .hero-text h2 { font-size: 1.05rem; font-weight: 800; color: #f59e0b; margin-bottom: 3px; }
 .hero-text p { font-size: 0.78rem; color: #cbd5e0; line-height: 1.35; margin-bottom: 8px; }
-
 .showcase-pills { display: flex; gap: 6px; flex-wrap: wrap; }
-.showcase-pill {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 0.68rem;
-  color: #f3f4f6;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+.showcase-pill { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); padding: 3px 8px; border-radius: 12px; font-size: 0.68rem; color: #f3f4f6; font-weight: 600; display: flex; align-items: center; gap: 4px; }
 
-/* ==========================================================================
-   4. PRODUCT CARDS & IMAGE CAROUSEL
-   ========================================================================== */
-.product-card {
-  background: var(--surface);
-  border-radius: 12px;
-  border: 1px solid var(--border-light);
-  margin-bottom: 10px;
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  position: relative;
-  box-shadow: var(--shadow-card);
-}
+.product-card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border-light); margin-bottom: 10px; padding: 12px; display: flex; gap: 12px; position: relative; box-shadow: var(--shadow-card); }
+.badge-tag { position: absolute; top: 0; left: 0; background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-top-left-radius: 11px; border-bottom-right-radius: 8px; text-transform: uppercase; z-index: 5; }
+.img-slider { position: relative; width: 115px; min-width: 115px; height: 115px; overflow: hidden; border-radius: 8px; background: #f9fafb; touch-action: pan-y; user-select: none; cursor: pointer; align-self: center; }
+.img-track { display: flex; width: 100%; height: 100%; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+.img-track img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; pointer-events: none; }
+.dots-indicator { position: absolute; bottom: 4px; width: 100%; display: flex; justify-content: center; gap: 3px; }
+.dot-step { width: 4px; height: 4px; background: #d1d5db; border-radius: 50%; transition: all 0.2s ease; }
+.dot-step.active { background: var(--accent-gold); width: 8px; border-radius: 4px; }
 
-.badge-tag {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(90deg, #f59e0b, #d97706);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-top-left-radius: 11px;
-  border-bottom-right-radius: 8px;
-  text-transform: uppercase;
-  z-index: 5;
-}
-
-.img-slider {
-  position: relative;
-  width: 115px;
-  min-width: 115px;
-  height: 115px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #f9fafb;
-  touch-action: pan-y;
-  user-select: none;
-  cursor: pointer;
-  align-self: center;
-}
-
-.img-track {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.img-track img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  flex-shrink: 0;
-  pointer-events: none;
-}
-
-.dots-indicator {
-  position: absolute;
-  bottom: 4px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 3px;
-}
-
-.dot-step {
-  width: 4px;
-  height: 4px;
-  background: #d1d5db;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
-
-.dot-step.active {
-  background: var(--accent-gold);
-  width: 8px;
-  border-radius: 4px;
-}
-
-.product-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+.product-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
 .title-text { font-size: 0.88rem; font-weight: 700; line-height: 1.3; color: var(--text-main); margin-bottom: 2px; }
 .art-context { font-size: 0.7rem; color: var(--text-muted); line-height: 1.25; margin-bottom: 4px; }
 .price-row { display: flex; align-items: baseline; gap: 6px; margin: 2px 0; }
@@ -226,130 +54,23 @@ header {
 .price-main { font-size: 1.15rem; font-weight: 800; color: #111827; }
 .price-mrp { font-size: 0.72rem; text-decoration: line-through; color: var(--text-muted); }
 .price-discount { font-size: 0.72rem; color: #ef4444; font-weight: 700; }
-
 .specs-pills { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
-.spec-pill {
-  background: #f3f4f6;
-  font-size: 0.63rem;
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
+.spec-pill { background: #f3f4f6; font-size: 0.63rem; padding: 2px 5px; border-radius: 4px; color: var(--text-muted); font-weight: 500; }
 
 .cart-controls { display: flex; align-items: center; justify-content: flex-end; }
-.add-btn {
-  background: #f59e0b;
-  border: none;
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #ffffff;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
-}
-
-.qty-counter {
-  display: flex;
-  align-items: center;
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.qty-counter button {
-  width: 28px;
-  height: 26px;
-  border: none;
-  background: transparent;
-  font-weight: 800;
-  font-size: 0.85rem;
-  cursor: pointer;
-  color: var(--text-main);
-}
-
+.add-btn { background: #f59e0b; border: none; border-radius: 20px; padding: 6px 16px; font-size: 0.75rem; font-weight: 700; color: #ffffff; cursor: pointer; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3); }
+.qty-counter { display: flex; align-items: center; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 16px; overflow: hidden; }
+.qty-counter button { width: 28px; height: 26px; border: none; background: transparent; font-weight: 800; font-size: 0.85rem; cursor: pointer; color: var(--text-main); }
 .qty-counter span { padding: 0 8px; font-size: 0.75rem; font-weight: 800; }
 
-/* ==========================================================================
-   5. BOTTOM APP NAVIGATION BAR
-   ========================================================================== */
-.bottom-app-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--bg-dark);
-  height: 56px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 2000;
-  border-top: 1px solid #1f2937;
-}
-
-.app-tab {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #9ca3af;
-  text-decoration: none;
-  font-size: 0.68rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  flex: 1;
-  height: 100%;
-  position: relative;
-  font-weight: 500;
-}
-
+.bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-content: space-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
+.app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af; text-decoration: none; font-size: 0.68rem; background: none; border: none; cursor: pointer; flex: 1; height: 100%; position: relative; font-weight: 500; }
 .app-tab.active { color: var(--accent-gold); font-weight: 700; }
-.app-tab.active::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 28px;
-  height: 3px;
-  background: var(--accent-gold);
-  border-radius: 0 0 3px 3px;
-}
-
+.app-tab.active::before { content: ""; position: absolute; top: 0; width: 28px; height: 3px; background: var(--accent-gold); border-radius: 0 0 3px 3px; }
 .tab-icon { font-size: 1.15rem; margin-bottom: 2px; }
-.badge-cart {
-  position: absolute;
-  top: 4px;
-  right: 50%;
-  transform: translateX(10px);
-  background: #ef4444;
-  color: #ffffff;
-  font-size: 0.65rem;
-  font-weight: 900;
-  border-radius: 10px;
-  padding: 1px 5px;
-  min-width: 15px;
-  text-align: center;
-}
+.badge-cart { position: absolute; top: 4px; right: 50%; transform: translateX(10px); background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; border-radius: 10px; padding: 1px 5px; min-width: 15px; text-align: center; }
 
-/* ==========================================================================
-   6. LIGHTBOX & CART DRAWER MODALS
-   ========================================================================== */
-.lightbox-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(5px);
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 10px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
+.lightbox-modal { display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(5px); flex-direction: column; justify-content: space-between; align-items: center; padding: 20px 10px; opacity: 0; transition: opacity 0.25s ease; }
 .lightbox-modal.show { display: flex; opacity: 1; }
 .lightbox-header { width: 100%; display: flex; justify-content: space-between; align-items: center; color: #fff; padding: 10px; }
 .lightbox-title { font-size: 0.9rem; font-weight: 600; text-align: left; }
@@ -361,96 +82,6 @@ header {
 .lightbox-dots { display: flex; gap: 6px; }
 .lightbox-dot { width: 8px; height: 8px; background: #6b7280; border-radius: 50%; transition: all 0.2s ease; }
 .lightbox-dot.active { background: var(--accent-gold); width: 18px; border-radius: 4px; }
-
-/* Cart Overlay & Table Formatting */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 2500;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.modal-overlay.show { display: flex; opacity: 1; }
-.cart-drawer {
-  background: #ffffff;
-  width: 100%;
-  max-width: 500px;
-  margin: auto auto 0 auto;
-  border-radius: 16px 16px 0 0;
-  padding: 18px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 12px; }
-.drawer-header h3 { font-size: 1rem; font-weight: 800; color: var(--text-main); }
-.close-drawer { border: none; background: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
-.form-group { margin-bottom: 10px; }
-.form-group label { display: block; font-size: 0.72rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
-.form-group input, .form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  outline: none;
-}
-
-.checkout-summary { border-top: 1px solid var(--border-light); padding-top: 8px; margin-top: 10px; }
-
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 6px;
-  font-size: 0.78rem;
-}
-.cart-table th {
-  background: #f8fafc;
-  color: var(--text-main);
-  text-align: left;
-  padding: 8px 6px;
-  font-weight: 700;
-  border-bottom: 2px solid var(--border-light);
-}
-.cart-table td {
-  padding: 8px 6px;
-  border-bottom: 1px solid var(--border-light);
-  color: var(--text-main);
-  vertical-align: middle;
-}
-.cart-table .col-center { text-align: center; }
-.cart-table .col-right { text-align: right; }
-
-.summary-total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #111827;
-  padding-top: 10px;
-  margin-top: 6px;
-}
-
-.btn-whatsapp {
-  width: 100%;
-  background: var(--accent-whatsapp);
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 24px;
-  font-size: 0.9rem;
-  font-weight: 800;
-  cursor: pointer;
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 10px rgba(37,211,102,0.3);
-}
 </style>
 </head>
 <body>
@@ -462,10 +93,6 @@ header {
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
     </div>
   </div>
 
@@ -473,8 +100,6 @@ header {
     <div class="modern-search-bar">
       <span class="search-icon">🔍</span>
       <input type="text" id="searchInput" placeholder="Search..." oninput="filterAndRender()">
-      
-      <!-- Badge / Category Tag Filter Dropdown -->
       <select class="filter-dropdown" id="badgeSelect" onchange="filterAndRender()">
         <option value="all">All Tags</option>
         <option value="Best Seller">Best Seller</option>
@@ -482,8 +107,6 @@ header {
         <option value="Top Choice">Top Choice</option>
         <option value="Special Deal">Special Deal</option>
       </select>
-
-      <!-- Price Sort Dropdown -->
       <select class="sort-dropdown" id="sortSelect" onchange="filterAndRender()">
         <option value="default">Featured</option>
         <option value="low-high">Price: Low to High</option>
@@ -510,18 +133,16 @@ header {
 </div>
 
 <nav class="bottom-app-nav">
-  <button class="app-tab active" onclick="scrollToTop()">
+  <a class="app-tab active" href="index.html">
     <span class="tab-icon">🏠</span>
     <span>Home</span>
-  </button>
-
-  <button class="app-tab" onclick="openCartModal()">
+  </a>
+  <a class="app-tab" href="whatsapp.html">
     <span class="tab-icon">🛒</span>
     <span>Cart</span>
     <span class="badge-cart" id="cartBadge">0</span>
-  </button>
-
-  <a class="app-tab" href="https://www.instagram.com/magicalfloorart/" target="_blank" rel="noopener">
+  </a>
+  <a class="app-tab" href="gallery.html">
     <span class="tab-icon">🎨</span>
     <span>Gallery</span>
   </a>
@@ -541,96 +162,39 @@ header {
   </div>
 </div>
 
-<div class="modal-overlay" id="cartOverlay">
-  <div class="cart-drawer">
-    <div class="drawer-header">
-      <h3>WhatsApp Order Summary</h3>
-      <button class="close-drawer" onclick="closeCartModal()">✕</button>
-    </div>
-    
-    <div class="form-group">
-      <label>Full Name</label>
-      <input type="text" id="custName" placeholder="Enter delivery name">
-    </div>
-    <div class="form-group">
-      <label>Delivery Address</label>
-      <textarea id="custAddress" rows="2" placeholder="Street, landmark, pincode"></textarea>
-    </div>
-
-    <div class="checkout-summary" id="checkoutList"></div>
-
-    <div class="summary-total-row">
-      <span>Grand Total:</span>
-      <span id="grandTotalDisplay" style="color:#ef4444;">₹0</span>
-    </div>
-
-    <button class="btn-whatsapp" onclick="proceedToWhatsApp()">
-      Send Order via WhatsApp
-    </button>
-  </div>
-</div>
-
 <script>
 const products = [
-  { 
-    id: 1, 
-    name: "3D Handcrafted Acrylic Rangoli Mat", 
-    description: "Versatile floral centerpiece designed with pre-set stones and pearls. Instant setup for puja rooms.",
-    price: 150, 
-    mrp: 299,
-    badge: "Special Deal",
-    size: '12" x 12"', 
-    height: "2 mm", 
-    weight: "250g", 
-    images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] 
-  },
-  { 
-    id: 2, 
-    name: "Custom High-Gloss Resin Floral Floor Art", 
-    description: "Hand-poured glossy resin with embedded metallic foil and dried petals. Smooth and easy to clean.",
-    price: 250, 
-    mrp: 450,
-    badge: "Top Choice",
-    size: '18" x 18"', 
-    height: "5 mm", 
-    weight: "600g", 
-    images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] 
-  },
-  { 
-    id: 3, 
-    name: "Royal Peacock Tile Marble Art Accent", 
-    description: "Intricate multi-piece royal peacock arrangement. Premium marble finish with gold leaf accents.",
-    price: 450, 
-    mrp: 799,
-    badge: "Best Seller",
-    size: '24" x 24"', 
-    height: "8 mm", 
-    weight: "1.2kg", 
-    images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] 
-  },
-  { 
-    id: 4, 
-    name: "Mandala Premium Floor Emblem", 
-    description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.",
-    price: 320, 
-    mrp: 599,
-    badge: "New Arrival",
-    size: '16" x 16"', 
-    height: "3 mm", 
-    weight: "400g", 
-    images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] 
-  }
+  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", description: "Versatile floral centerpiece designed with pre-set stones and pearls. Instant setup for puja rooms.", price: 150, mrp: 299, badge: "Special Deal", size: '12" x 12"', height: "2 mm", weight: "250g", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
+  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", description: "Hand-poured glossy resin with embedded metallic foil and dried petals. Smooth and easy to clean.", price: 250, mrp: 450, badge: "Top Choice", size: '18" x 18"', height: "5 mm", weight: "600g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] },
+  { id: 3, name: "Royal Peacock Tile Marble Art Accent", description: "Intricate multi-piece royal peacock arrangement. Premium marble finish with gold leaf accents.", price: 450, mrp: 799, badge: "Best Seller", size: '24" x 24"', height: "8 mm", weight: "1.2kg", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
+  { id: 4, name: "Mandala Premium Floor Emblem", description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.", price: 320, mrp: 599, badge: "New Arrival", size: '16" x 16"', height: "3 mm", weight: "400g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] }
 ];
 
-const cart = {};
+let cart = JSON.parse(localStorage.getItem('cart')) || {};
 const slideIndices = {};
 let activeLightboxProductId = null;
 let currentLightboxIndex = 0;
 
 products.forEach(p => {
-  cart[p.id] = 0;
+  if (cart[p.id] === undefined) cart[p.id] = 0;
   slideIndices[p.id] = 0;
 });
+
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartBadge() {
+  const count = Object.values(cart).reduce((a,b) => a + b, 0);
+  document.getElementById("cartBadge").innerText = count;
+}
+
+function updateQty(id, delta) {
+  cart[id] = Math.max(0, cart[id] + delta);
+  saveCart();
+  updateCartBadge();
+  filterAndRender();
+}
 
 function filterAndRender() {
   const query = document.getElementById("searchInput").value.toLowerCase();
@@ -651,7 +215,6 @@ function filterAndRender() {
 
 function renderProducts(list) {
   const container = document.getElementById("productsList");
-  
   if (list.length === 0) {
     container.innerHTML = `<div style="text-align:center; padding: 40px 10px; color:#6b7280;">No artworks match your selected filters.</div>`;
     return;
@@ -663,7 +226,6 @@ function renderProducts(list) {
     return `
     <div class="product-card">
       ${p.badge ? `<div class="badge-tag">${p.badge}</div>` : ''}
-
       <div class="img-slider" id="slider-${p.id}">
         <div class="img-track" id="track-${p.id}" style="transform: translateX(-${activeIdx * 100}%);">
           ${p.images.map(img => `<img src="${img}" alt="${p.name}">`).join('')}
@@ -672,25 +234,21 @@ function renderProducts(list) {
           ${p.images.map((_, i) => `<span class="dot-step ${i === activeIdx ? 'active' : ''}" id="dot-${p.id}-${i}"></span>`).join('')}
         </div>
       </div>
-
       <div class="product-details">
         <div>
           <div class="title-text">${p.name}</div>
           <div class="art-context">${p.description}</div>
-
           <div class="price-row">
             <span class="price-discount">-${discount}%</span>
             <span><span class="price-currency">₹</span><span class="price-main">${p.price}</span></span>
             <span class="price-mrp">₹${p.mrp}</span>
           </div>
-
           <div class="specs-pills">
             <span class="spec-pill">Size: ${p.size}</span>
             <span class="spec-pill">Thick: ${p.height}</span>
             <span class="spec-pill">Weight: ${p.weight}</span>
           </div>
         </div>
-
         <div class="cart-controls">
           ${cart[p.id] === 0 ? `
             <button class="add-btn" onclick="updateQty(${p.id}, 1); event.stopPropagation();">Add to Cart</button>
@@ -713,16 +271,12 @@ function renderProducts(list) {
 function attachInlineCardSwipe(id) {
   const sliderEl = document.getElementById(`slider-${id}`);
   if (!sliderEl) return;
-
-  let startX = 0;
-  let isDragging = false;
-  let hasMoved = false;
+  let startX = 0, isDragging = false, hasMoved = false;
 
   const handleStart = (x) => { startX = x; isDragging = true; hasMoved = false; };
   const handleEnd = (x) => {
     if (!isDragging) return;
     const diff = startX - x;
-
     if (Math.abs(diff) > 20) {
       hasMoved = true;
       const p = products.find(item => item.id === id);
@@ -747,49 +301,31 @@ function attachInlineCardSwipe(id) {
 function updateInlineCardSlide(id) {
   const p = products.find(item => item.id === id);
   if (!p) return;
-
   const idx = slideIndices[id] || 0;
   const track = document.getElementById(`track-${id}`);
   if (track) track.style.transform = `translateX(-${idx * 100}%)`;
-
   p.images.forEach((_, i) => {
     const dot = document.getElementById(`dot-${id}-${i}`);
     if (dot) dot.classList.toggle('active', i === idx);
   });
 }
 
-function updateQty(id, delta) {
-  cart[id] = Math.max(0, cart[id] + delta);
-  updateCartBadge();
-  filterAndRender();
-}
-
-function updateCartBadge() {
-  const count = Object.values(cart).reduce((a,b) => a + b, 0);
-  document.getElementById("cartBadge").innerText = count;
-}
-
 function openLightbox(id) {
   const p = products.find(item => item.id === id);
   if (!p) return;
-
   activeLightboxProductId = id;
   currentLightboxIndex = slideIndices[id] || 0;
-
   document.getElementById("lightboxTitle").innerText = p.name;
   
   const track = document.getElementById("lightboxTrack");
   track.innerHTML = p.images.map(img => `<img src="${img}" alt="Full View">`).join('');
-
   const dots = document.getElementById("lightboxDots");
   dots.innerHTML = p.images.map((_, i) => `<span class="lightbox-dot ${i === currentLightboxIndex ? 'active' : ''}" id="lb-dot-${i}"></span>`).join('');
 
   updateLightboxSlide();
-
   const modal = document.getElementById("lightboxModal");
   modal.style.display = "flex";
   setTimeout(() => modal.classList.add("show"), 10);
-
   attachLightboxSwipe();
 }
 
@@ -802,24 +338,19 @@ function closeLightbox() {
 function updateLightboxSlide() {
   const p = products.find(item => item.id === activeLightboxProductId);
   if (!p) return;
-
   const track = document.getElementById("lightboxTrack");
   track.style.transform = `translateX(-${currentLightboxIndex * 100}%)`;
-
   p.images.forEach((_, i) => {
     const dot = document.getElementById(`lb-dot-${i}`);
     if (dot) dot.classList.toggle('active', i === currentLightboxIndex);
   });
-
   slideIndices[activeLightboxProductId] = currentLightboxIndex;
   updateInlineCardSlide(activeLightboxProductId);
 }
 
 function attachLightboxSwipe() {
   const viewport = document.getElementById("lightboxViewport");
-  let startX = 0;
-  let dragging = false;
-
+  let startX = 0, dragging = false;
   const start = (x) => { startX = x; dragging = true; };
   const end = (x) => {
     if (!dragging) return;
@@ -831,100 +362,13 @@ function attachLightboxSwipe() {
     }
     dragging = false;
   };
-
   viewport.ontouchstart = (e) => start(e.touches[0].clientX);
   viewport.ontouchend = (e) => end(e.changedTouches[0].clientX);
   viewport.onmousedown = (e) => start(e.clientX);
   viewport.onmouseup = (e) => end(e.clientX);
 }
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function openCartModal() {
-  renderCartDrawer();
-  const overlay = document.getElementById("cartOverlay");
-  overlay.style.display = "flex";
-  setTimeout(() => overlay.classList.add("show"), 10);
-}
-
-function closeCartModal() {
-  const overlay = document.getElementById("cartOverlay");
-  overlay.classList.remove("show");
-  setTimeout(() => overlay.style.display = "none", 200);
-}
-
-function renderCartDrawer() {
-  let total = 0;
-  const activeItems = products.filter(p => cart[p.id] > 0);
-
-  if (activeItems.length === 0) {
-    document.getElementById("checkoutList").innerHTML = `<div style="text-align:center; color:#777; padding:15px 0;">Your cart is empty.</div>`;
-    document.getElementById("grandTotalDisplay").innerText = `₹0`;
-    return;
-  }
-
-  const tableRows = activeItems.map(p => {
-    const subtotal = p.price * cart[p.id];
-    total += subtotal;
-    return `
-      <tr>
-        <td><strong>${p.name}</strong></td>
-        <td class="col-center">${cart[p.id]}</td>
-        <td class="col-right">₹${p.price}</td>
-        <td class="col-right"><strong>₹${subtotal}</strong></td>
-      </tr>
-    `;
-  }).join('');
-
-  document.getElementById("checkoutList").innerHTML = `
-    <table class="cart-table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th class="col-center">Qty</th>
-          <th class="col-right">Price</th>
-          <th class="col-right">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${tableRows}
-      </tbody>
-    </table>
-  `;
-
-  document.getElementById("grandTotalDisplay").innerText = `₹${total}`;
-}
-
-function proceedToWhatsApp() {
-  const name = document.getElementById("custName").value.trim();
-  const address = document.getElementById("custAddress").value.trim();
-
-  if (!name || !address) return alert("Please fill in your delivery details.");
-
-  let total = 0;
-  let itemsFormatted = "";
-  let itemIndex = 1;
-
-  products.forEach(p => {
-    if (cart[p.id] > 0) {
-      const sub = p.price * cart[p.id];
-      total += sub;
-      itemsFormatted += `${itemIndex}. *${p.name}*\n   ├ Qty: ${cart[p.id]} × ₹${p.price}\n   └ Total: ₹${sub}\n`;
-      itemIndex++;
-    }
-  });
-
-  if (total === 0) return alert("Your cart is empty.");
-
-  const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
-
-  const whatsappNumber = "917507611433";
-  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
-}
-
-/* Initialize App */
+updateCartBadge();
 filterAndRender();
 </script>
 </body>
