@@ -5,19 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
 <title>Magical Floor Art</title>
 <style>
-/* ========================================================================
+/* ==========================================================================
    1. COLOR PALETTE & THEME VARIABLES
-   Change these hex values to customize colors across the whole application.
    ========================================================================== */
 :root {
-  --bg-dark: #111827;          /* Header & bottom navbar background */
-  --bg-app: #f4f5f7;           /* Main screen background */
-  --surface: #ffffff;          /* Product card background */
-  --accent-gold: #f59e0b;      /* Primary accent color (Buttons, active tabs) */
-  --accent-whatsapp: #25d366;  /* WhatsApp checkout button color */
-  --text-main: #1f2937;        /* Main dark text */
-  --text-muted: #6b7280;       /* Secondary grey text */
-  --border-light: #e5e7eb;     /* Border lines */
+  --bg-dark: #111827;         
+  --bg-app: #f4f5f7;            
+  --surface: #ffffff;         
+  --accent-gold: #f59e0b;     
+  --accent-whatsapp: #25d366;  
+  --text-main: #1f2937;        
+  --text-muted: #6b7280;       
+  --border-light: #e5e7eb;     
   --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -47,8 +46,7 @@ header {
   display: flex;
   width: max-content;
   gap: 32px;
-  padding-right: 32px; /* Matches gap for a seamless infinite loop */
-  /* CHANGE SPEED: Adjust '15s' to make the text move faster or slower */
+  padding-right: 32px;
   animation: flowRightToLeft 15s linear infinite;
 }
 
@@ -56,7 +54,6 @@ header {
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  /* CHANGE TEXT GRADIENT: Update colors inside linear-gradient */
   background: linear-gradient(90deg, #ff7e5f, #feb47b, #f59e0b, #38ef7d, #11998e, #ff7e5f);
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -65,13 +62,12 @@ header {
   white-space: nowrap;
 }
 
-/* Seamless Right-To-Left Loop Keyframe */
 @keyframes flowRightToLeft {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
 
-/* Search Bar */
+/* Search & Filter Bar */
 .search-container { padding: 6px 12px 12px 12px; }
 .modern-search-bar {
   display: flex;
@@ -82,24 +78,26 @@ header {
   height: 40px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.search-icon { padding: 0 12px; color: #888; font-size: 0.9rem; }
+.search-icon { padding: 0 10px; color: #888; font-size: 0.85rem; }
 .modern-search-bar input {
   flex: 1;
+  min-width: 60px;
   border: none;
   outline: none;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: var(--text-main);
 }
-.sort-dropdown {
+.filter-dropdown, .sort-dropdown {
   border: none;
   background: #f9fafb;
-  padding: 0 10px;
+  padding: 0 8px;
   height: 100%;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-muted);
   border-left: 1px solid var(--border-light);
   outline: none;
+  max-width: 110px;
 }
 
 /* ==========================================================================
@@ -214,7 +212,6 @@ header {
   border-radius: 4px;
 }
 
-/* Product Details */
 .product-details {
   flex: 1;
   display: flex;
@@ -365,7 +362,7 @@ header {
 .lightbox-dot { width: 8px; height: 8px; background: #6b7280; border-radius: 50%; transition: all 0.2s ease; }
 .lightbox-dot.active { background: var(--accent-gold); width: 18px; border-radius: 4px; }
 
-/* Cart Drawer Overlay */
+/* Cart Overlay & Table Formatting */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -400,9 +397,43 @@ header {
   font-size: 0.85rem;
   outline: none;
 }
-.checkout-summary { border-top: 1px solid var(--border-light); padding-top: 10px; margin-top: 10px; }
-.summary-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; }
-.summary-total { font-size: 1rem; font-weight: 800; color: #ef4444; border-top: 1px dashed var(--border-light); padding-top: 8px; }
+
+.checkout-summary { border-top: 1px solid var(--border-light); padding-top: 8px; margin-top: 10px; }
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-size: 0.78rem;
+}
+.cart-table th {
+  background: #f8fafc;
+  color: var(--text-main);
+  text-align: left;
+  padding: 8px 6px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-light);
+}
+.cart-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+.cart-table .col-center { text-align: center; }
+.cart-table .col-right { text-align: right; }
+
+.summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #111827;
+  padding-top: 10px;
+  margin-top: 6px;
+}
+
 .btn-whatsapp {
   width: 100%;
   background: var(--accent-whatsapp);
@@ -425,19 +456,12 @@ header {
 <body>
 
 <header>
-  <!-- ==========================================================================
-       HEADER MARQUEE TICKER (RIGHT TO LEFT)
-       Note: The <span> tags are duplicated across two sets so that when set #1 
-       scrolls completely off screen, set #2 seamlessly fills its place.
-       ========================================================================== -->
   <div class="brand-ticker-wrapper">
     <div class="brand-ticker-content">
-      <!-- SET 1 -->
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <!-- SET 2 (Duplicated for 100% continuous infinite loop) -->
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
@@ -445,11 +469,21 @@ header {
     </div>
   </div>
 
-  <!-- Search and Sorting Controls -->
   <div class="search-container">
     <div class="modern-search-bar">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search handcrafted designs..." oninput="filterAndRender()">
+      <input type="text" id="searchInput" placeholder="Search..." oninput="filterAndRender()">
+      
+      <!-- Badge / Category Tag Filter Dropdown -->
+      <select class="filter-dropdown" id="badgeSelect" onchange="filterAndRender()">
+        <option value="all">All Tags</option>
+        <option value="Best Seller">Best Seller</option>
+        <option value="New Arrival">New Arrival</option>
+        <option value="Top Choice">Top Choice</option>
+        <option value="Special Deal">Special Deal</option>
+      </select>
+
+      <!-- Price Sort Dropdown -->
       <select class="sort-dropdown" id="sortSelect" onchange="filterAndRender()">
         <option value="default">Featured</option>
         <option value="low-high">Price: Low to High</option>
@@ -460,7 +494,6 @@ header {
 </header>
 
 <div class="container">
-  <!-- Hero Section -->
   <div class="hero-banner">
     <div class="hero-text">
       <h2>Handcrafted Rangoli & Traditional Floor Art</h2>
@@ -473,11 +506,9 @@ header {
     </div>
   </div>
 
-  <!-- Dynamic Product Catalog Container -->
   <div id="productsList"></div>
 </div>
 
-<!-- Bottom Navigation Bar -->
 <nav class="bottom-app-nav">
   <button class="app-tab active" onclick="scrollToTop()">
     <span class="tab-icon">🏠</span>
@@ -490,14 +521,12 @@ header {
     <span class="badge-cart" id="cartBadge">0</span>
   </button>
 
-  <!-- CHANGE GALLERY LINK: Replace href with your Instagram or website URL -->
   <a class="app-tab" href="https://www.instagram.com/magicalfloorart/" target="_blank" rel="noopener">
     <span class="tab-icon">🎨</span>
     <span>Gallery</span>
   </a>
 </nav>
 
-<!-- Fullscreen Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">
   <div class="lightbox-header">
     <div class="lightbox-title" id="lightboxTitle">Artwork Title</div>
@@ -512,7 +541,6 @@ header {
   </div>
 </div>
 
-<!-- WhatsApp Checkout Order Drawer -->
 <div class="modal-overlay" id="cartOverlay">
   <div class="cart-drawer">
     <div class="drawer-header">
@@ -531,9 +559,9 @@ header {
 
     <div class="checkout-summary" id="checkoutList"></div>
 
-    <div class="summary-row summary-total">
-      <span>Total Amount:</span>
-      <span id="grandTotalDisplay">₹0</span>
+    <div class="summary-total-row">
+      <span>Grand Total:</span>
+      <span id="grandTotalDisplay" style="color:#ef4444;">₹0</span>
     </div>
 
     <button class="btn-whatsapp" onclick="proceedToWhatsApp()">
@@ -543,10 +571,6 @@ header {
 </div>
 
 <script>
-/* ==========================================================================
-   7. PRODUCT CATALOG CONFIGURATION
-   Add, remove, or edit product details here.
-   ========================================================================== */
 const products = [
   { 
     id: 1, 
@@ -558,7 +582,6 @@ const products = [
     size: '12" x 12"', 
     height: "2 mm", 
     weight: "250g", 
-    /* Replace image paths below with your actual image file paths */
     images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] 
   },
   { 
@@ -584,10 +607,21 @@ const products = [
     height: "8 mm", 
     weight: "1.2kg", 
     images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] 
+  },
+  { 
+    id: 4, 
+    name: "Mandala Premium Floor Emblem", 
+    description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.",
+    price: 320, 
+    mrp: 599,
+    badge: "New Arrival",
+    size: '16" x 16"', 
+    height: "3 mm", 
+    weight: "400g", 
+    images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] 
   }
 ];
 
-/* Global State */
 const cart = {};
 const slideIndices = {};
 let activeLightboxProductId = null;
@@ -598,14 +632,16 @@ products.forEach(p => {
   slideIndices[p.id] = 0;
 });
 
-/* ==========================================================================
-   8. RENDERING & FILTERING LOGIC
-   ========================================================================== */
 function filterAndRender() {
   const query = document.getElementById("searchInput").value.toLowerCase();
+  const badgeFilter = document.getElementById("badgeSelect").value;
   const sort = document.getElementById("sortSelect").value;
 
-  let dataset = products.filter(p => p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+  let dataset = products.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
+    const matchesBadge = badgeFilter === "all" || p.badge === badgeFilter;
+    return matchesSearch && matchesBadge;
+  });
 
   if (sort === "low-high") dataset.sort((a,b) => a.price - b.price);
   if (sort === "high-low") dataset.sort((a,b) => b.price - a.price);
@@ -615,6 +651,12 @@ function filterAndRender() {
 
 function renderProducts(list) {
   const container = document.getElementById("productsList");
+  
+  if (list.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding: 40px 10px; color:#6b7280;">No artworks match your selected filters.</div>`;
+    return;
+  }
+
   container.innerHTML = list.map(p => {
     const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
     const activeIdx = slideIndices[p.id] || 0;
@@ -668,9 +710,6 @@ function renderProducts(list) {
   list.forEach(p => attachInlineCardSwipe(p.id));
 }
 
-/* ==========================================================================
-   9. SWIPE & LIGHTBOX INTERACTIONS
-   ========================================================================== */
 function attachInlineCardSwipe(id) {
   const sliderEl = document.getElementById(`slider-${id}`);
   if (!sliderEl) return;
@@ -818,24 +857,46 @@ function closeCartModal() {
 
 function renderCartDrawer() {
   let total = 0;
-  const list = products.filter(p => cart[p.id] > 0).map(p => {
-    const sub = p.price * cart[p.id];
-    total += sub;
+  const activeItems = products.filter(p => cart[p.id] > 0);
+
+  if (activeItems.length === 0) {
+    document.getElementById("checkoutList").innerHTML = `<div style="text-align:center; color:#777; padding:15px 0;">Your cart is empty.</div>`;
+    document.getElementById("grandTotalDisplay").innerText = `₹0`;
+    return;
+  }
+
+  const tableRows = activeItems.map(p => {
+    const subtotal = p.price * cart[p.id];
+    total += subtotal;
     return `
-      <div class="summary-row">
-        <span>${p.name} (x${cart[p.id]})</span>
-        <span>₹${sub}</span>
-      </div>
+      <tr>
+        <td><strong>${p.name}</strong></td>
+        <td class="col-center">${cart[p.id]}</td>
+        <td class="col-right">₹${p.price}</td>
+        <td class="col-right"><strong>₹${subtotal}</strong></td>
+      </tr>
     `;
   }).join('');
 
-  document.getElementById("checkoutList").innerHTML = list || `<div style="text-align:center; color:#777; padding:10px;">Your cart is empty.</div>`;
+  document.getElementById("checkoutList").innerHTML = `
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th class="col-center">Qty</th>
+          <th class="col-right">Price</th>
+          <th class="col-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${tableRows}
+      </tbody>
+    </table>
+  `;
+
   document.getElementById("grandTotalDisplay").innerText = `₹${total}`;
 }
 
-/* ==========================================================================
-   10. WHATSAPP CHECKOUT INTEGRATION
-   ========================================================================== */
 function proceedToWhatsApp() {
   const name = document.getElementById("custName").value.trim();
   const address = document.getElementById("custAddress").value.trim();
@@ -843,23 +904,22 @@ function proceedToWhatsApp() {
   if (!name || !address) return alert("Please fill in your delivery details.");
 
   let total = 0;
-  let itemsStr = "";
-  let idx = 1;
+  let itemsFormatted = "";
+  let itemIndex = 1;
 
   products.forEach(p => {
     if (cart[p.id] > 0) {
       const sub = p.price * cart[p.id];
       total += sub;
-      itemsStr += `${idx}. *${p.name}* | Qty: ${cart[p.id]} | ₹${sub}\n`;
-      idx++;
+      itemsFormatted += `${itemIndex}. *${p.name}*\n   ├ Qty: ${cart[p.id]} × ₹${p.price}\n   └ Total: ₹${sub}\n`;
+      itemIndex++;
     }
   });
 
   if (total === 0) return alert("Your cart is empty.");
 
-  const msg = `✨ *NEW FLOOR ART ORDER*\n\n👤 *Name:* ${name}\n📍 *Address:* ${address}\n\n📦 *Order Items:*\n${itemsStr}\n💰 *Total:* ₹${total}\n\nPlease confirm my order.`;
-  
-  /* CHANGE PHONE NUMBER: Replace '917507611433' with your WhatsApp business number (include country code without + sign) */
+  const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
+
   const whatsappNumber = "917507611433";
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
 }
