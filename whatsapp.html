@@ -21,7 +21,6 @@ body { background: var(--bg-app); color: var(--text-main); padding-bottom: 75px;
 
 header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: center; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.5px; }
 
-/* Responsive Container */
 .container { 
   max-width: 800px; 
   width: 92%; 
@@ -42,7 +41,6 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
 
 .checkout-summary { border-top: 1px solid var(--border-light); padding-top: 12px; margin-top: 16px; }
 
-/* Table Structure & Alignment */
 .cart-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.85rem; }
 
 .cart-table th, 
@@ -60,7 +58,6 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
   border-bottom: 2px solid var(--border-light); 
 }
 
-/* Explicit Column Widths */
 .cart-table th:nth-child(1), .cart-table td:nth-child(1) { width: 45%; text-align: left; }
 .cart-table th:nth-child(2), .cart-table td:nth-child(2) { width: 20%; white-space: nowrap; }
 .cart-table th:nth-child(3), .cart-table td:nth-child(3) { width: 15%; white-space: nowrap; }
@@ -69,7 +66,14 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
 .col-center { text-align: center; }
 .col-right { text-align: right; }
 
-/* Vertically Centered Quantity Buttons */
+.item-color-tag {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
 .qty-btn { 
   background: #e5e7eb; 
   border: none; 
@@ -156,49 +160,82 @@ function saveCart() {
 }
 
 function updateCartBadge() {
-  const count = Object.values(cart).reduce((a, b) => a + Number(b), 0);
+  const count = Object.values(cart).reduce((total, item) => {
+    const qty = typeof item === 'object' ? item.qty : Number(item);
+    return total + (Number(qty) || 0);
+  }, 0);
   document.getElementById("cartBadge").innerText = count;
 }
 
-function updateQty(id, delta) {
-  const key = String(id);
-  const currentQty = Number(cart[key]) || 0;
-  const newQty = Math.max(0, currentQty + delta);
+function updateQty(key, delta) {
+  if (!cart[key]) return;
   
+  let currentQty = typeof cart[key] === 'object' ? cart[key].qty : Number(cart[key]);
+  const newQty = Math.max(0, currentQty + delta);
+
   if (newQty === 0) {
     delete cart[key];
   } else {
-    cart[key] = newQty;
+    if (typeof cart[key] === 'object') {
+      cart[key].qty = newQty;
+    } else {
+      cart[key] = newQty;
+    }
   }
-  
+
   saveCart();
   updateCartBadge();
   renderCartDrawer();
 }
 
+function getItemDetails(key) {
+  if (typeof cart[key] === 'object' && cart[key] !== null) {
+    return cart[key];
+  }
+
+  const baseId = key.split('_')[0];
+  const p = (typeof products !== 'undefined' ? products : []).find(item => String(item.id) === String(baseId));
+
+  if (!p) return null;
+
+  return {
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    color: '',
+    qty: Number(cart[key]) || 0
+  };
+}
+
 function renderCartDrawer() {
   let total = 0;
-  const activeItems = (typeof products !== 'undefined' ? products : []).filter(p => (Number(cart[String(p.id)]) || 0) > 0);
+  const cartKeys = Object.keys(cart);
 
-  if (activeItems.length === 0) {
+  if (cartKeys.length === 0) {
     document.getElementById("checkoutList").innerHTML = `<div style="text-align:center; color:#777; padding:15px 0;">Your cart is empty.</div>`;
     document.getElementById("grandTotalDisplay").innerText = `₹0`;
     return;
   }
 
-  const tableRows = activeItems.map(p => {
-    const qty = Number(cart[String(p.id)]) || 0;
-    const subtotal = p.price * qty;
+  const tableRows = cartKeys.map(key => {
+    const item = getItemDetails(key);
+    if (!item || item.qty <= 0) return '';
+
+    const subtotal = item.price * item.qty;
     total += subtotal;
+
     return `
       <tr>
-        <td>${p.name}</td>
-        <td class="col-center">
-          <button class="qty-btn" onclick="updateQty('${p.id}', -1)">-</button>
-          <span style="margin: 0 6px; font-weight: normal; vertical-align: middle;">${qty}</span>
-          <button class="qty-btn" onclick="updateQty('${p.id}', 1)">+</button>
+        <td>
+          ${item.name}
+          ${item.color ? `<span class="item-color-tag">Color: ${item.color}</span>` : ''}
         </td>
-        <td class="col-right">₹${p.price}</td>
+        <td class="col-center">
+          <button class="qty-btn" onclick="updateQty('${key}', -1)">-</button>
+          <span style="margin: 0 6px; font-weight: normal; vertical-align: middle;">${item.qty}</span>
+          <button class="qty-btn" onclick="updateQty('${key}', 1)">+</button>
+        </td>
+        <td class="col-right">₹${item.price}</td>
         <td class="col-right">₹${subtotal}</td>
       </tr>
     `;
@@ -233,22 +270,20 @@ function proceedToWhatsApp() {
   let itemsFormatted = "";
   let itemIndex = 1;
 
-  if (typeof products !== 'undefined') {
-    products.forEach(p => {
-      const qty = Number(cart[String(p.id)]) || 0;
-      if (qty > 0) {
-        const sub = p.price * qty;
-        total += sub;
-        // Added extra line break (\n\n) after each item for spacing
-        itemsFormatted += `${itemIndex}. *${p.name}*\n   ├ Qty: ${qty} × ₹${p.price}\n   └ Total: ₹${sub}\n\n`;
-        itemIndex++;
-      }
-    });
-  }
+  Object.keys(cart).forEach(key => {
+    const item = getItemDetails(key);
+    if (item && item.qty > 0) {
+      const sub = item.price * item.qty;
+      total += sub;
+      const colorText = item.color ? ` (Color: ${item.color})` : '';
+      
+      itemsFormatted += `${itemIndex}. *${item.name}${colorText}*\n   ├ Qty: ${item.qty} × ₹${item.price}\n   └ Total: ₹${sub}\n\n`;
+      itemIndex++;
+    }
+  });
 
   if (total === 0) return alert("Your cart is empty.");
 
-  // Added 2 blank lines (\n\n\n) before Grand Total section
   const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n\n\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
 
   const whatsappNumber = "+918982877785";

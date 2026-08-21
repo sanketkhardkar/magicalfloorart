@@ -58,10 +58,66 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
 .spec-pill { background: #f3f4f6; font-size: 0.63rem; padding: 2px 5px; border-radius: 4px; color: var(--text-muted); font-weight: 500; }
 
 .cart-controls { display: flex; align-items: center; justify-content: flex-end; }
-.add-btn { background: #f59e0b; border: none; border-radius: 20px; padding: 6px 16px; font-size: 0.75rem; font-weight: 700; color: #ffffff; cursor: pointer; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3); }
-.qty-counter { display: flex; align-items: center; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 16px; overflow: hidden; }
-.qty-counter button { width: 28px; height: 26px; border: none; background: transparent; font-weight: 800; font-size: 0.85rem; cursor: pointer; color: var(--text-main); }
-.qty-counter span { padding: 0 8px; font-size: 0.75rem; font-weight: 800; }
+
+/* STANDARDIZED BUTTON AND STEPPER SIZE */
+.add-btn {
+  background: #f59e0b;
+  border: none;
+  border-radius: 20px;
+  width: 110px;               /* Standardized Width */
+  height: 34px;              /* Standardized Height */
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 110px;               /* Matching Standardized Width */
+  height: 34px;              /* Matching Standardized Height */
+  background: #f3f4f6;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 3px 4px;
+  box-sizing: border-box;
+}
+
+.qty-btn-inline {
+  background: #f59e0b;
+  color: #ffffff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(245, 158, 11, 0.3);
+  transition: transform 0.1s ease;
+}
+
+.qty-btn-inline:active {
+  transform: scale(0.9);
+}
+
+.qty-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  flex: 1;
+}
 
 .bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
 .app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af; text-decoration: none; font-size: 0.68rem; background: none; border: none; cursor: pointer; flex: 1; height: 100%; position: relative; font-weight: 500; }
@@ -191,24 +247,86 @@ function saveCart() {
 }
 
 function updateCartBadge() {
-  const count = Object.values(cart).reduce((a, b) => a + Number(b), 0);
+  const count = Object.values(cart).reduce((total, item) => {
+    const qty = typeof item === 'object' ? item.qty : Number(item);
+    return total + (Number(qty) || 0);
+  }, 0);
   document.getElementById("cartBadge").innerText = count;
 }
 
-function updateQty(id, delta) {
-  const key = String(id);
-  const currentQty = Number(cart[key]) || 0;
-  const newQty = Math.max(0, currentQty + delta);
-  
-  if (newQty === 0) {
-    delete cart[key];
-  } else {
-    cart[key] = newQty;
+function getSelectedVariantQty(id) {
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p) return 0;
+
+  const colorSelect = document.getElementById(`color-select-${id}`);
+  const selectedColor = colorSelect ? colorSelect.value : (p.colors && p.colors.length > 0 ? p.colors[0] : '');
+  const cartKey = selectedColor ? `${id}_${selectedColor}` : String(id);
+
+  if (cart[cartKey]) {
+    return typeof cart[cartKey] === 'object' ? cart[cartKey].qty : Number(cart[cartKey]);
   }
-  
+  return 0;
+}
+
+function changeQty(id, delta) {
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p) return;
+
+  const colorSelect = document.getElementById(`color-select-${id}`);
+  const selectedColor = colorSelect ? colorSelect.value : (p.colors && p.colors.length > 0 ? p.colors[0] : '');
+  const cartKey = selectedColor ? `${id}_${selectedColor}` : String(id);
+
+  if (!cart[cartKey]) {
+    if (delta > 0) {
+      cart[cartKey] = {
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        color: selectedColor,
+        qty: 1
+      };
+    }
+  } else {
+    let currentQty = typeof cart[cartKey] === 'object' ? cart[cartKey].qty : Number(cart[cartKey]);
+    let newQty = currentQty + delta;
+
+    if (newQty <= 0) {
+      delete cart[cartKey];
+    } else {
+      if (typeof cart[cartKey] === 'object') {
+        cart[cartKey].qty = newQty;
+      } else {
+        cart[cartKey] = newQty;
+      }
+    }
+  }
+
   saveCart();
   updateCartBadge();
-  filterAndRender();
+  updateCartControl(id);
+}
+
+function updateCartControl(id) {
+  const container = document.getElementById(`cart-control-container-${id}`);
+  if (!container) return;
+
+  const qty = getSelectedVariantQty(id);
+
+  if (qty > 0) {
+    container.innerHTML = `
+      <div class="qty-control">
+        <button class="qty-btn-inline" onclick="changeQty('${id}', -1); event.stopPropagation();">-</button>
+        <span class="qty-num">${qty}</span>
+        <button class="qty-btn-inline" onclick="changeQty('${id}', 1); event.stopPropagation();">+</button>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <button class="add-btn" id="add-btn-${id}" onclick="changeQty('${id}', 1); event.stopPropagation();">
+        Add to Cart
+      </button>
+    `;
+  }
 }
 
 function filterAndRender() {
@@ -240,7 +358,11 @@ function renderProducts(list) {
     const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
     const key = String(p.id);
     const activeIdx = slideIndices[key] || 0;
-    const itemQty = Number(cart[key]) || 0;
+    const hasColors = p.colors && p.colors.length > 0;
+    
+    const defaultColor = hasColors ? p.colors[0] : '';
+    const initialKey = defaultColor ? `${p.id}_${defaultColor}` : String(p.id);
+    const initialQty = cart[initialKey] ? (typeof cart[initialKey] === 'object' ? cart[initialKey].qty : Number(cart[initialKey])) : 0;
 
     return `
     <div class="product-card">
@@ -262,21 +384,33 @@ function renderProducts(list) {
             <span><span class="price-currency">₹</span><span class="price-main">${p.price}</span></span>
             <span class="price-mrp">₹${p.mrp}</span>
           </div>
+
+          ${hasColors ? `
+            <div style="margin: 4px 0; display:flex; align-items:center; gap:6px;">
+              <label style="font-size:0.72rem; font-weight:700; color:var(--text-muted);">Color:</label>
+              <select id="color-select-${p.id}" onchange="updateCartControl('${p.id}')" style="font-size:0.75rem; padding:2px 6px; border-radius:6px; border:1px solid var(--border-light); background:#f9fafb;" onclick="event.stopPropagation();">
+                ${p.colors.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+          ` : ''}
+
           <div class="specs-pills">
             <span class="spec-pill">Size: ${p.size}</span>
             <span class="spec-pill">Thick: ${p.height}</span>
             <span class="spec-pill">Weight: ${p.weight}</span>
           </div>
         </div>
-        <div class="cart-controls">
-          ${itemQty === 0 ? `
-            <button class="add-btn" onclick="updateQty('${p.id}', 1); event.stopPropagation();">Add to Cart</button>
-          ` : `
-            <div class="qty-counter" onclick="event.stopPropagation();">
-              <button onclick="updateQty('${p.id}', -1)">−</button>
-              <span>${itemQty}</span>
-              <button onclick="updateQty('${p.id}', 1)">+</button>
+        <div class="cart-controls" id="cart-control-container-${p.id}">
+          ${initialQty > 0 ? `
+            <div class="qty-control">
+              <button class="qty-btn-inline" onclick="changeQty('${p.id}', -1); event.stopPropagation();">-</button>
+              <span class="qty-num">${initialQty}</span>
+              <button class="qty-btn-inline" onclick="changeQty('${p.id}', 1); event.stopPropagation();">+</button>
             </div>
+          ` : `
+            <button class="add-btn" id="add-btn-${p.id}" onclick="changeQty('${p.id}', 1); event.stopPropagation();">
+              Add to Cart
+            </button>
           `}
         </div>
       </div>
