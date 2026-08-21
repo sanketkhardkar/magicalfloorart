@@ -2,7 +2,7 @@
 const products = [
 	{id: 1, 
 		name: "Gauri Pujan & Mahalakshmi Acrylic Rangoli Set", 
-		description: "Commemorate festive traditions with this complete Gauri Pujan floor art set. Featuring beautifully detailed twin Gauri faces, holding pink lotuses, divine footprints, samai lamps, and auspicious Devanagari calligraphy. Reusable, washable, and designed for effortless setup during Mahalakshmi & Gauri Ganpati celebrations.", 
+		description: "Complete Gauri Pujan acrylic set featuring twin divine faces, pink lotuses, samai lamps, and auspicious footprints. Reusable, washable, and mess-free for effortless Mahalakshmi and Gauri Ganpati celebrations.", 
 		price: 750, 
 		mrp: 1200, 
 		badge: "Special Deal", 
