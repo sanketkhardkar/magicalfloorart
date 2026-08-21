@@ -27,7 +27,7 @@ const products = [
     description: "Beautiful lotus acrylic rangoli with vibrant green leaves, perfect for Mahalakshmi Pujan, Gauri Pujan, Diwali, Ganesh Chaturthi, and festive home decoration. Reusable, washable, and mess-free for easy and elegant traditional decor.", 
     price: 70, 
     mrp: 110, 
-    badge: "Special Deal", 
+    badge: "Trending Now", 
     colors: ["Red", "Pink", "Yellow"],
     size: '12" x 12"', 
     height: "2 mm", 

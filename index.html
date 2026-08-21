@@ -162,11 +162,12 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
       <span class="search-icon">🔍</span>
       <input type="text" id="searchInput" placeholder="Search..." oninput="filterAndRender()">
       <select class="filter-dropdown" id="badgeSelect" onchange="filterAndRender()">
-        <option value="all">All Tags</option>
-        <option value="Best Seller">Best Seller</option>
-        <option value="New Arrival">New Arrival</option>
-        <option value="Top Choice">Top Choice</option>
-        <option value="Special Deal">Special Deal</option>
+		<option value="all">All Tags</option>
+		<option value="New Arrival">New Arrival</option>
+		<option value="Special Deal">Special Deal</option>
+		<option value="Top Choice">Top Choice</option>
+		<option value="Top Choice">Trending Now</option>
+		
       </select>
       <select class="sort-dropdown" id="sortSelect" onchange="filterAndRender()">
         <option value="default">Featured</option>
