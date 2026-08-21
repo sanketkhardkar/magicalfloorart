@@ -251,7 +251,7 @@ function proceedToWhatsApp() {
   // Added 2 blank lines (\n\n\n) before Grand Total section
   const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n\n\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
 
-  const whatsappNumber = "8982877785";
+  const whatsappNumber = "+918982877785";
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
