@@ -15,7 +15,7 @@ body { background: var(--bg-app); color: var(--text-main); padding-bottom: 75px;
 
 header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); overflow: hidden; }
 .brand-ticker-wrapper { width: 100%; overflow: hidden; padding: 12px 0 6px 0; display: flex; }
-.brand-ticker-content { display: flex; width: max-content; gap: 32px; padding-right: 32px; animation: flowRightToLeft 15s linear infinite; }
+.brand-ticker-content { display: flex; width: max-content; gap: 32px; padding-right: 32px; animation: flowRightToLeft 20s linear infinite; }
 .glowing-brand-text {
   font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px;
   background: linear-gradient(90deg, #ff7e5f, #feb47b, #f59e0b, #38ef7d, #11998e, #ff7e5f);
@@ -63,7 +63,7 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
 .qty-counter button { width: 28px; height: 26px; border: none; background: transparent; font-weight: 800; font-size: 0.85rem; cursor: pointer; color: var(--text-main); }
 .qty-counter span { padding: 0 8px; font-size: 0.75rem; font-weight: 800; }
 
-.bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-content: space-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
+.bottom-app-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); height: 56px; display: flex; justify-around; align-items: center; z-index: 2000; border-top: 1px solid #1f2937; }
 .app-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #9ca3af; text-decoration: none; font-size: 0.68rem; background: none; border: none; cursor: pointer; flex: 1; height: 100%; position: relative; font-weight: 500; }
 .app-tab.active { color: var(--accent-gold); font-weight: 700; }
 .app-tab.active::before { content: ""; position: absolute; top: 0; width: 28px; height: 3px; background: var(--accent-gold); border-radius: 0 0 3px 3px; }
@@ -89,6 +89,12 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
 <header>
   <div class="brand-ticker-wrapper">
     <div class="brand-ticker-content">
+      <!-- Group 1 -->
+      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
+      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
+      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
+      <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
+      <!-- Group 2 (Exact Duplicate for Continuous Loop) -->
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
@@ -162,14 +168,10 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
   </div>
 </div>
 
-<script>
-const products = [
-  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", description: "Versatile floral centerpiece designed with pre-set stones and pearls. Instant setup for puja rooms.", price: 150, mrp: 299, badge: "Special Deal", size: '12" x 12"', height: "2 mm", weight: "250g", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
-  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", description: "Hand-poured glossy resin with embedded metallic foil and dried petals. Smooth and easy to clean.", price: 250, mrp: 450, badge: "Top Choice", size: '18" x 18"', height: "5 mm", weight: "600g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] },
-  { id: 3, name: "Royal Peacock Tile Marble Art Accent", description: "Intricate multi-piece royal peacock arrangement. Premium marble finish with gold leaf accents.", price: 450, mrp: 799, badge: "Best Seller", size: '24" x 24"', height: "8 mm", weight: "1.2kg", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
-  { id: 4, name: "Mandala Premium Floor Emblem", description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.", price: 320, mrp: 599, badge: "New Arrival", size: '16" x 16"', height: "3 mm", weight: "400g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] }
-];
+<!-- Load products.js before main application script -->
+<script src="products.js"></script>
 
+<script>
 let cart = JSON.parse(localStorage.getItem('cart')) || {};
 const slideIndices = {};
 let activeLightboxProductId = null;

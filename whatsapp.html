@@ -27,6 +27,10 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
 .cart-table td { padding: 8px 6px; border-bottom: 1px solid var(--border-light); color: var(--text-main); vertical-align: middle; }
 .col-center { text-align: center; } .col-right { text-align: right; }
 
+/* Quantity Controls inside Table */
+.qty-btn { background: #e5e7eb; border: none; border-radius: 4px; width: 22px; height: 22px; font-weight: bold; cursor: pointer; }
+.qty-btn:active { background: #d1d5db; }
+
 .summary-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 800; color: #111827; padding-top: 10px; margin-top: 6px; }
 
 .btn-whatsapp { width: 100%; background: var(--accent-whatsapp); color: #fff; border: none; padding: 12px; border-radius: 24px; font-size: 0.9rem; font-weight: 800; cursor: pointer; margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); }
@@ -86,18 +90,31 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
 </nav>
 
 <script>
+// Dynamic products array matching index.html
 const products = [
-  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", price: 150 },
-  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", price: 250 },
-  { id: 3, name: "Royal Peacock Tile Marble Art Accent", price: 450 },
-  { id: 4, name: "Mandala Premium Floor Emblem", price: 320 }
+  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", description: "Versatile floral centerpiece designed with pre-set stones and pearls. Instant setup for puja rooms.", price: 150, mrp: 299, badge: "Special Deal", size: '12" x 12"', height: "2 mm", weight: "250g", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
+  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", description: "Hand-poured glossy resin with embedded metallic foil and dried petals. Smooth and easy to clean.", price: 250, mrp: 450, badge: "Top Choice", size: '18" x 18"', height: "5 mm", weight: "600g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] },
+  { id: 3, name: "Royal Peacock Tile Marble Art Accent", description: "Intricate multi-piece royal peacock arrangement. Premium marble finish with gold leaf accents.", price: 450, mrp: 799, badge: "Best Seller", size: '24" x 24"', height: "8 mm", weight: "1.2kg", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
+  { id: 4, name: "Mandala Premium Floor Emblem", description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.", price: 320, mrp: 599, badge: "New Arrival", size: '16" x 16"', height: "3 mm", weight: "400g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] }
 ];
 
 let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 function updateCartBadge() {
-  const count = Object.values(cart).reduce((a,b) => a + b, 0);
+  const count = Object.values(cart).reduce((a, b) => a + b, 0);
   document.getElementById("cartBadge").innerText = count;
+}
+
+function updateQty(id, delta) {
+  cart[id] = Math.max(0, (cart[id] || 0) + delta);
+  if (cart[id] === 0) delete cart[id];
+  saveCart();
+  updateCartBadge();
+  renderCartDrawer();
 }
 
 function renderCartDrawer() {
@@ -116,7 +133,11 @@ function renderCartDrawer() {
     return `
       <tr>
         <td><strong>${p.name}</strong></td>
-        <td class="col-center">${cart[p.id]}</td>
+        <td class="col-center">
+          <button class="qty-btn" onclick="updateQty(${p.id}, -1)">-</button>
+          <span style="margin: 0 4px; font-weight: bold;">${cart[p.id]}</span>
+          <button class="qty-btn" onclick="updateQty(${p.id}, 1)">+</button>
+        </td>
         <td class="col-right">₹${p.price}</td>
         <td class="col-right"><strong>₹${subtotal}</strong></td>
       </tr>
@@ -163,7 +184,7 @@ function proceedToWhatsApp() {
 
   if (total === 0) return alert("Your cart is empty.");
 
-  const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
+  const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
 
   const whatsappNumber = "917507611433";
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
