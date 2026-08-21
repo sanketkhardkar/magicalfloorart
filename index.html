@@ -70,6 +70,7 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
 .tab-icon { font-size: 1.15rem; margin-bottom: 2px; }
 .badge-cart { position: absolute; top: 4px; right: 50%; transform: translateX(10px); background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; border-radius: 10px; padding: 1px 5px; min-width: 15px; text-align: center; }
 
+/* LIGHTBOX MODAL STYLES */
 .lightbox-modal { display: none; position: fixed; inset: 0; z-index: 3000; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(5px); flex-direction: column; justify-content: space-between; align-items: center; padding: 20px 10px; opacity: 0; transition: opacity 0.25s ease; }
 .lightbox-modal.show { display: flex; opacity: 1; }
 .lightbox-header { width: 100%; display: flex; justify-content: space-between; align-items: center; color: #fff; padding: 10px; }
@@ -89,12 +90,10 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
 <header>
   <div class="brand-ticker-wrapper">
     <div class="brand-ticker-content">
-      <!-- Group 1 -->
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
-      <!-- Group 2 (Exact Duplicate for Continuous Loop) -->
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
       <span class="glowing-brand-text">✨ Magical Floor Art ✨</span>
@@ -130,11 +129,11 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
     </div>
     <div class="showcase-pills">
       <span class="showcase-pill">🪔 Festive Ready</span>
-	  <span class="showcase-pill">💎 Acrylic Premium</span>
+      <span class="showcase-pill">💎 Acrylic Premium</span>
       <span class="showcase-pill">🏡 Indoor & Outdoor</span>
-	  <span class="showcase-pill">✨ Reusable & Durable</span>
-	  <span class="showcase-pill">🌸 Waterproof</span>
-	  <span class="showcase-pill">🧹 Easy to Clean</span>
+      <span class="showcase-pill">✨ Reusable & Durable</span>
+      <span class="showcase-pill">🌸 Waterproof</span>
+      <span class="showcase-pill">🧹 Easy to Clean</span>
     </div>
   </div>
 
@@ -157,6 +156,7 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
   </a>
 </nav>
 
+<!-- LIGHTBOX MODAL -->
 <div class="lightbox-modal" id="lightboxModal">
   <div class="lightbox-header">
     <div class="lightbox-title" id="lightboxTitle">Artwork Title</div>
@@ -171,7 +171,6 @@ header { background: var(--bg-dark); position: sticky; top: 0; z-index: 1000; bo
   </div>
 </div>
 
-<!-- Load products.js before main application script -->
 <script src="products.js"></script>
 
 <script>
@@ -180,22 +179,33 @@ const slideIndices = {};
 let activeLightboxProductId = null;
 let currentLightboxIndex = 0;
 
-products.forEach(p => {
-  if (cart[p.id] === undefined) cart[p.id] = 0;
-  slideIndices[p.id] = 0;
-});
+if (typeof products !== 'undefined') {
+  products.forEach(p => {
+    const key = String(p.id);
+    slideIndices[key] = 0;
+  });
+}
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function updateCartBadge() {
-  const count = Object.values(cart).reduce((a,b) => a + b, 0);
+  const count = Object.values(cart).reduce((a, b) => a + Number(b), 0);
   document.getElementById("cartBadge").innerText = count;
 }
 
 function updateQty(id, delta) {
-  cart[id] = Math.max(0, cart[id] + delta);
+  const key = String(id);
+  const currentQty = Number(cart[key]) || 0;
+  const newQty = Math.max(0, currentQty + delta);
+  
+  if (newQty === 0) {
+    delete cart[key];
+  } else {
+    cart[key] = newQty;
+  }
+  
   saveCart();
   updateCartBadge();
   filterAndRender();
@@ -206,8 +216,9 @@ function filterAndRender() {
   const badgeFilter = document.getElementById("badgeSelect").value;
   const sort = document.getElementById("sortSelect").value;
 
-  let dataset = products.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
+  const datasetList = typeof products !== 'undefined' ? products : [];
+  let dataset = datasetList.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
     const matchesBadge = badgeFilter === "all" || p.badge === badgeFilter;
     return matchesSearch && matchesBadge;
   });
@@ -227,7 +238,10 @@ function renderProducts(list) {
 
   container.innerHTML = list.map(p => {
     const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
-    const activeIdx = slideIndices[p.id] || 0;
+    const key = String(p.id);
+    const activeIdx = slideIndices[key] || 0;
+    const itemQty = Number(cart[key]) || 0;
+
     return `
     <div class="product-card">
       ${p.badge ? `<div class="badge-tag">${p.badge}</div>` : ''}
@@ -255,13 +269,13 @@ function renderProducts(list) {
           </div>
         </div>
         <div class="cart-controls">
-          ${cart[p.id] === 0 ? `
-            <button class="add-btn" onclick="updateQty(${p.id}, 1); event.stopPropagation();">Add to Cart</button>
+          ${itemQty === 0 ? `
+            <button class="add-btn" onclick="updateQty('${p.id}', 1); event.stopPropagation();">Add to Cart</button>
           ` : `
             <div class="qty-counter" onclick="event.stopPropagation();">
-              <button onclick="updateQty(${p.id}, -1)">−</button>
-              <span>${cart[p.id]}</span>
-              <button onclick="updateQty(${p.id}, 1)">+</button>
+              <button onclick="updateQty('${p.id}', -1)">−</button>
+              <span>${itemQty}</span>
+              <button onclick="updateQty('${p.id}', 1)">+</button>
             </div>
           `}
         </div>
@@ -284,11 +298,12 @@ function attachInlineCardSwipe(id) {
     const diff = startX - x;
     if (Math.abs(diff) > 20) {
       hasMoved = true;
-      const p = products.find(item => item.id === id);
+      const p = products.find(item => String(item.id) === String(id));
       if (p) {
-        let current = slideIndices[id] || 0;
+        const key = String(id);
+        let current = slideIndices[key] || 0;
         current = diff > 0 ? (current + 1) % p.images.length : (current - 1 + p.images.length) % p.images.length;
-        slideIndices[id] = current;
+        slideIndices[key] = current;
         updateInlineCardSlide(id);
       }
     } else if (!hasMoved) {
@@ -304,9 +319,10 @@ function attachInlineCardSwipe(id) {
 }
 
 function updateInlineCardSlide(id) {
-  const p = products.find(item => item.id === id);
+  const p = products.find(item => String(item.id) === String(id));
   if (!p) return;
-  const idx = slideIndices[id] || 0;
+  const key = String(id);
+  const idx = slideIndices[key] || 0;
   const track = document.getElementById(`track-${id}`);
   if (track) track.style.transform = `translateX(-${idx * 100}%)`;
   p.images.forEach((_, i) => {
@@ -316,10 +332,10 @@ function updateInlineCardSlide(id) {
 }
 
 function openLightbox(id) {
-  const p = products.find(item => item.id === id);
+  const p = products.find(item => String(item.id) === String(id));
   if (!p) return;
   activeLightboxProductId = id;
-  currentLightboxIndex = slideIndices[id] || 0;
+  currentLightboxIndex = slideIndices[String(id)] || 0;
   document.getElementById("lightboxTitle").innerText = p.name;
   
   const track = document.getElementById("lightboxTrack");
@@ -341,7 +357,7 @@ function closeLightbox() {
 }
 
 function updateLightboxSlide() {
-  const p = products.find(item => item.id === activeLightboxProductId);
+  const p = products.find(item => String(item.id) === String(activeLightboxProductId));
   if (!p) return;
   const track = document.getElementById("lightboxTrack");
   track.style.transform = `translateX(-${currentLightboxIndex * 100}%)`;
@@ -349,7 +365,7 @@ function updateLightboxSlide() {
     const dot = document.getElementById(`lb-dot-${i}`);
     if (dot) dot.classList.toggle('active', i === currentLightboxIndex);
   });
-  slideIndices[activeLightboxProductId] = currentLightboxIndex;
+  slideIndices[String(activeLightboxProductId)] = currentLightboxIndex;
   updateInlineCardSlide(activeLightboxProductId);
 }
 
@@ -361,7 +377,7 @@ function attachLightboxSwipe() {
     if (!dragging) return;
     const diff = startX - x;
     if (Math.abs(diff) > 30) {
-      const p = products.find(item => item.id === activeLightboxProductId);
+      const p = products.find(item => String(item.id) === String(activeLightboxProductId));
       currentLightboxIndex = diff > 0 ? (currentLightboxIndex + 1) % p.images.length : (currentLightboxIndex - 1 + p.images.length) % p.images.length;
       updateLightboxSlide();
     }
