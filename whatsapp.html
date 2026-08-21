@@ -91,12 +91,6 @@ header { background: var(--bg-dark); padding: 16px; color: #fff; text-align: cen
 
 <script>
 // Dynamic products array matching index.html
-const products = [
-  { id: 1, name: "3D Handcrafted Acrylic Rangoli Mat", description: "Versatile floral centerpiece designed with pre-set stones and pearls. Instant setup for puja rooms.", price: 150, mrp: 299, badge: "Special Deal", size: '12" x 12"', height: "2 mm", weight: "250g", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
-  { id: 2, name: "Custom High-Gloss Resin Floral Floor Art", description: "Hand-poured glossy resin with embedded metallic foil and dried petals. Smooth and easy to clean.", price: 250, mrp: 450, badge: "Top Choice", size: '18" x 18"', height: "5 mm", weight: "600g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] },
-  { id: 3, name: "Royal Peacock Tile Marble Art Accent", description: "Intricate multi-piece royal peacock arrangement. Premium marble finish with gold leaf accents.", price: 450, mrp: 799, badge: "Best Seller", size: '24" x 24"', height: "8 mm", weight: "1.2kg", images: ["images/product1-1.jpg", "images/product1-2.jpg", "images/product1-3.jpg"] },
-  { id: 4, name: "Mandala Premium Floor Emblem", description: "Exquisite traditional mandala floor art featuring waterproof acrylic and intricate beadwork.", price: 320, mrp: 599, badge: "New Arrival", size: '16" x 16"', height: "3 mm", weight: "400g", images: ["images/product2-1.jpg", "images/product2-2.jpg", "images/product2-3.jpg"] }
-];
 
 let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
@@ -186,7 +180,7 @@ function proceedToWhatsApp() {
 
   const msg = `✨ *NEW ORDER REQUEST* ✨\n\n👤 *Customer Name:* ${name}\n📍 *Delivery Address:* ${address}\n\n📋 *ORDER SUMMARY TABLE*\n----------------------------------------\n${itemsFormatted}----------------------------------------\n\n💰 *GRAND TOTAL:* ₹${total}\n\nPlease confirm availability and dispatch details!`;
 
-  const whatsappNumber = "917507611433";
+  const whatsappNumber = "8982877785";
   window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
